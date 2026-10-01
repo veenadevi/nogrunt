@@ -1,0 +1,7 @@
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `cmdfile` VARCHAR(250) NULL AFTER `script`;
+
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`) VALUES ('65', 'gherkintestcases', 'http://localhost:8000/vectorizetestcase2');
+INSERT INTO `cta`.`sysprops` (`idsysprops`,`name`, `value`, `comments`) VALUES ('66', 'deploymenttype', 'OnPrem', 'Validation for Batch File execution either SaaS or OnPrem');
+
+

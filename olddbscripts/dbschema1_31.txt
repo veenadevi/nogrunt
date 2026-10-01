@@ -1,0 +1,63 @@
+CREATE TABLE `cta`.`product_element_details` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `prodid` INT NULL,
+  `totalpages` INT NULL,
+  `totalelements` INT NULL,
+  `usedelement` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `prodid_idx` (`prodid` ASC) VISIBLE,
+  CONSTRAINT `prodid`
+    FOREIGN KEY (`prodid`)
+    REFERENCES `cta`.`products` (`idproducts`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);    
+    
+CREATE TABLE `cta`.`pages` (
+  `pageid` INT NOT NULL AUTO_INCREMENT,
+  `pagename` VARCHAR(45) NULL,
+  `prodid` INT NULL,
+  `totalelementonpage` INT NULL,
+  `usedelementonpage` INT NULL,
+  `screenshotpath` VARCHAR(1500) NULL DEFAULT NULL,
+  PRIMARY KEY (`pageid`),
+  INDEX `prodid_idx` (`prodid` ASC) VISIBLE,
+  CONSTRAINT `productid`
+    FOREIGN KEY (`prodid`)
+    REFERENCES `cta`.`products` (`idproducts`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+CREATE TABLE `cta`.`elements` (
+  `elementid` INT NOT NULL AUTO_INCREMENT,
+  `elementname` VARCHAR(45) NULL,
+  `pageid` INT NULL,
+  `recordedxpath` VARCHAR(1500) NULL DEFAULT NULL,
+  PRIMARY KEY (`elementid`),
+  INDEX `pageid_idx` (`pageid` ASC) VISIBLE,
+  CONSTRAINT `pageid`
+    FOREIGN KEY (`pageid`)
+    REFERENCES `cta`.`pages` (`pageid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+CREATE TABLE `cta`.`pagerelation` (
+  `pagerelationid` INT NOT NULL AUTO_INCREMENT,
+  `pagefrom` INT NULL,
+  `pageto` INT NULL,
+  PRIMARY KEY (`pagerelationid`));
+  
+ALTER TABLE `cta`.`pagerelation` 
+ADD COLUMN `productid` INT NULL AFTER `pageto`,
+CHANGE COLUMN `pagefrom` `pagefrom` INT NULL ,
+CHANGE COLUMN `pageto` `pageto` INT NULL ,
+ADD INDEX `prodIdd_idx` (`productid` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`pagerelation` 
+ADD CONSTRAINT `prodIdd`
+  FOREIGN KEY (`productid`)
+  REFERENCES `cta`.`products` (`idproducts`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `cta`.`company` 
+ADD COLUMN `parallelThreads` INT NULL DEFAULT 1 AFTER `storageclearancesuccessful`;

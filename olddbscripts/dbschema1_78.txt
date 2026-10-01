@@ -1,0 +1,6 @@
+ALTER TABLE `cta`.`pages` 
+ADD COLUMN `status` INT NULL DEFAULT 0 AFTER `versionedfrompage`,
+ADD COLUMN `createddate` DATETIME NULL AFTER `status`;
+
+ALTER TABLE `cta`.`testcaseexecutionlog` 
+ADD COLUMN `testcaseid` INT NULL AFTER `Executed_Date`;

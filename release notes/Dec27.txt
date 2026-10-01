@@ -1,0 +1,7 @@
+1. support for clear - Need a test case for this
+2. the flow change drop down gives immediate feedback
+3. Where screenshots are not available better messaging
+4. date handlign should work - Need a test case for this
+5. 
+
+

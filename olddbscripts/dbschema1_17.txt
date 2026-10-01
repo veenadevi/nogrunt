@@ -1,0 +1,13 @@
+ALTER TABLE `cta`.`userprofile` 
+CHANGE COLUMN `password` `password` VARCHAR(1000) NULL DEFAULT NULL ;
+
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('35', 'NoOfFaledAttemptsAllowed', '3', 'No of fail attempts that can be allowed for login');
+
+ALTER TABLE `cta`.`userprofile` 
+ADD COLUMN `nooffailedattempts` INT NULL DEFAULT 0 AFTER `verificationtimer`;
+
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `subAction` VARCHAR(45) NULL DEFAULT NULL AFTER `Action`;
+
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `copiedfrom` INT NULL DEFAULT NULL AFTER `envurl`;

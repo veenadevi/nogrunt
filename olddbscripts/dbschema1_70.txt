@@ -1,0 +1,1 @@
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('70', 'outlookaccessurl', 'http://127.0.0.1:5000/get-otp', 'outlook needs to run locally on the server this url points to');

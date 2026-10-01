@@ -1,0 +1,6 @@
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `continuetest` INT NULL DEFAULT 0 AFTER `laststeprecordedtime`,
+ADD COLUMN `multirun` INT NULL DEFAULT 0 AFTER `continuetest`;
+
+ALTER TABLE `cta`.`test_suite` 
+ADD COLUMN `ssonerror` INT NULL DEFAULT 0 AFTER `headless`;

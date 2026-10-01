@@ -1,0 +1,7 @@
+ALTER TABLE `cta`.`test_case_results` 
+ADD COLUMN `sessionid` VARCHAR(150) NULL AFTER `ThresholdStatus`;
+
+ALTER TABLE `cta`.`test_case_results` 
+ADD COLUMN `nodeUri` VARCHAR(150) NULL AFTER `sessionid`;
+
+CREATE INDEX idx_test_step ON cta.test_step_attr (test_step);

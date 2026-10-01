@@ -1,0 +1,29 @@
+DELIMITER //
+
+CREATE PROCEDURE BatchCreateIndex()
+BEGIN
+    DECLARE startRow INT;
+    DECLARE batchSize INT;
+    DECLARE done INT DEFAULT 0;
+
+    SET startRow = 0;
+    SET batchSize = 1000;  -- Adjust the batch size as needed
+
+    WHILE NOT done DO
+        -- Create the index for the current batch
+        SET @sql = CONCAT('CREATE INDEX idx_batch_', startRow, '_to_', startRow + batchSize, ' ON cta.test_case_results (Executed_By);');
+        PREPARE stmt FROM @sql;
+        EXECUTE stmt;
+        DEALLOCATE PREPARE stmt;
+
+        -- Update the startRow for the next batch
+        SET startRow = startRow + batchSize;
+
+        -- Check if there are more rows to process
+        SELECT COUNT(*) INTO done FROM cta.test_case_results WHERE startRow >= (SELECT MAX(idtest_case_results) FROM cta.test_case_results);
+    END WHILE;
+END //
+
+DELIMITER ;
+
+CALL BatchCreateIndex();

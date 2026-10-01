@@ -1,0 +1,52 @@
+ALTER TABLE cta.test_step_result MODIFY Executed_Date DATETIME(3);
+
+insert into cta.sysprops set idsysprops=27, name ="forgotpwdsubject", value="Nogrunt - OTP for Forgot Password";
+
+ALTER TABLE `cta`.`test_step` 
+CHANGE COLUMN `outerhtml` `outerhtml` VARCHAR(5000) NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`test_suite` 
+ADD COLUMN `supports_parallel_execution` VARCHAR(45) NULL AFTER `rerunfailedtests`;
+
+update cta.custprops set value ="~" where idcustprops = 1;
+
+insert into cta.sysprops set idsysprops = 28 ,  name = 'delimiter', value = '~', comments = 'Default Delimiter';
+insert into cta.sysprops set idsysprops = 29 ,  name = 'testdatadelimiter', value = '~', comments = 'Delimiter while setting up test data';
+insert into cta.sysprops set idsysprops = 30 ,  name = 'validatedelimiter', value = '~', comments = 'Delimiter while setting up validation'; 
+
+CREATE TABLE `cta`.`licenses` (
+  `idlicenses` INT NOT NULL AUTO_INCREMENT,
+  `licensekey` VARCHAR(45) NULL,
+  `companyid` INT NULL,
+  `validtill` DATETIME NULL,
+  PRIMARY KEY (`idlicenses`),
+  INDEX `liccomp_idx` (`companyid` ASC) VISIBLE,
+  CONSTRAINT `liccomp`
+    FOREIGN KEY (`companyid`)
+    REFERENCES `cta`.`company` (`idcompany`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+	
+	ALTER TABLE `cta`.`test_suite` 
+ADD COLUMN `resultsemail` VARCHAR(100) NULL AFTER `supports_parallel_execution`;
+
+ALTER TABLE `cta`.`test_suite_results` 
+ADD COLUMN `passCount` INT NULL AFTER `Duration`,
+ADD COLUMN `failCount` INT NULL AFTER `passCount`,
+ADD COLUMN `rerunfailedtests` VARCHAR(45) NULL AFTER `failCount`;
+
+ALTER TABLE cta.test_suite_results MODIFY Executed_Date DATETIME(3);
+
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `dependantTC` INT NULL AFTER `waittime`,
+ADD INDEX `deptc_idx` (`dependantTC` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`test_step` 
+ADD CONSTRAINT `deptc`
+  FOREIGN KEY (`dependantTC`)
+  REFERENCES `cta`.`test_case` (`idtest_case`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `manuallyAdded` VARCHAR(45) NULL AFTER `dependantTC`;

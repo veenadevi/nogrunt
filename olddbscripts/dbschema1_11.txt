@@ -1,0 +1,95 @@
+CREATE TABLE `cta`.`api` (
+  `idapi` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(250) NULL,
+  `version` INT NULL,
+  `createdby` VARCHAR(45) NULL,
+  `createddate` DATETIME NULL,
+  `status` INT NULL,
+  `moduleid` INT NULL,
+  `envurl` VARCHAR(250) NULL,
+  PRIMARY KEY (`idapi`),
+  INDEX `apimod_idx` (`moduleid` ASC) VISIBLE,
+  CONSTRAINT `apimod`
+    FOREIGN KEY (`moduleid`)
+    REFERENCES `cta`.`modules` (`idmodules`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+	
+	ALTER TABLE `cta`.`test_case` 
+CHANGE COLUMN `envurl` `envurl` VARCHAR(250) NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`api` 
+ADD COLUMN `updateddate` DATETIME NULL AFTER `envurl`;
+
+ALTER TABLE `cta`.`api` 
+ADD COLUMN `type` VARCHAR(45) NULL AFTER `updateddate`;
+
+ALTER TABLE `cta`.`api` 
+ADD COLUMN `body` VARCHAR(4000) NULL AFTER `type`;
+
+CREATE TABLE `cta`.`apiparams` (
+  `idapiparams` INT NOT NULL AUTO_INCREMENT,
+  `apiid` INT NULL,
+  `key` VARCHAR(250) NULL,
+  `value` VARCHAR(4000) NULL,
+  PRIMARY KEY (`idapiparams`),
+  INDEX `apiparam_idx` (`apiid` ASC) VISIBLE,
+  CONSTRAINT `apiparam`
+    FOREIGN KEY (`apiid`)
+    REFERENCES `cta`.`api` (`idapi`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+	
+	ALTER TABLE `cta`.`apiparams` 
+ADD COLUMN `filename` VARCHAR(250) NULL AFTER `value`,
+ADD COLUMN `filefield` VARCHAR(500) NULL AFTER `filename`,
+ADD COLUMN `dburl` VARCHAR(250) NULL AFTER `filefield`,
+ADD COLUMN `dbusername` VARCHAR(100) NULL AFTER `dburl`,
+ADD COLUMN `dbpwd` VARCHAR(100) NULL AFTER `dbusername`,
+ADD COLUMN `dbquery` VARCHAR(1000) NULL AFTER `dbpwd`,
+ADD COLUMN `dbtype` VARCHAR(45) NULL AFTER `dbquery`,
+ADD COLUMN `dbversion` VARCHAR(45) NULL AFTER `dbtype`,
+ADD COLUMN `gendatatype` VARCHAR(45) NULL AFTER `dbversion`,
+ADD COLUMN `gendatalen` INT NULL AFTER `gendatatype`;
+
+CREATE TABLE `cta`.`apiparamresults` (
+  `idapiparamresults` INT NOT NULL AUTO_INCREMENT,
+  `apiid` INT NULL,
+  `key` VARCHAR(250) NULL,
+  `value` VARCHAR(4000) NULL,
+  `filename` VARCHAR(250) NULL,
+  `filefield` VARCHAR(500) NULL,
+  `dburl` VARCHAR(250) NULL,
+  `dbusername` VARCHAR(100) NULL,
+  `dbpwd` VARCHAR(100) NULL,
+  `dbquery` VARCHAR(1000) NULL,
+  `dbtype` VARCHAR(45) NULL,
+  `dbversion` VARCHAR(45) NULL,
+  `gendatatype` VARCHAR(45) NULL,
+  `gendatalen` INT NULL,
+  PRIMARY KEY (`idapiparamresults`),
+  INDEX `paramresapi_idx` (`apiid` ASC) VISIBLE,
+  CONSTRAINT `paramresapi`
+    FOREIGN KEY (`apiid`)
+    REFERENCES `cta`.`api` (`idapi`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+	
+	ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `outerhtml` VARCHAR(1000) NULL AFTER `altpath`;
+
+insert into cta.sysprops set idsysprops=19, name="awssesaccesskey", value ="AKIAYFPISP7NHWXIV7TY";
+insert into cta.sysprops set idsysprops=20, name="awssessecretaccesskey", value ="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";
+insert into cta.sysprops set idsysprops=21, name="fromaddress", value ="automate@nogrunt.com";
+insert into cta.sysprops set idsysprops=22, name="s3bucket", value ="C:\\Nogrunt\\templates";
+insert into cta.sysprops set idsysprops=23, name="environment", value ="production";
+insert into cta.sysprops set idsysprops=24, name="welcomesubject", value = "Welcome to Nogrunt - The No-Code Automation Platform";
+
+ALTER TABLE `cta`.`userprofile` 
+ADD COLUMN `pwdchangetoken` INT NULL AFTER `createdDate`,
+ADD COLUMN `pwdchgrequestedtime` DATETIME NULL AFTER `pwdchangetoken`,
+ADD COLUMN `pwdchgcompletedtime` DATETIME NULL AFTER `pwdchgrequestedtime`;
+
+ALTER TABLE `cta`.`api` 
+ADD COLUMN `url` VARCHAR(1000) NULL AFTER `body`;
+

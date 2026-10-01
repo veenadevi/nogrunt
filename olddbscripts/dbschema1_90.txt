@@ -1,0 +1,2 @@
+INSERT INTO cta.sysprops (name, value, comments)
+VALUES ('mobileSuitAPI', 'http://localhost:8080/KeyLogging/executeSuite?', 'Suit Execution for mobile');

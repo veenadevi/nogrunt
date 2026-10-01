@@ -1,0 +1,18 @@
+CREATE TABLE mobile_capabilities (
+    capablities_Id INT AUTO_INCREMENT PRIMARY KEY,
+    platformName VARCHAR(50) NOT NULL,
+    platformVersion VARCHAR(20) NOT NULL,
+    deviceName VARCHAR(100) NOT NULL,
+    automationName VARCHAR(50) NOT NULL,
+    app TEXT NOT NULL,
+    label VARCHAR(100),
+    companyId INT NOT NULL,
+    Created_Date DATETIME NOT NULL,
+    capName VARCHAR(50)
+);
+
+CREATE TABLE cta.testcase_capability_map(
+    mapping_Id INT AUTO_INCREMENT PRIMARY KEY,
+    testcase_Id INT NOT NULL,
+    capabilities_id INT NOT NULL
+);

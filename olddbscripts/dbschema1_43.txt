@@ -1,0 +1,1 @@
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('51', 'poolingenabled', 'false', 'dbpolling or not?');

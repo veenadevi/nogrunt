@@ -1,0 +1,29 @@
+ALTER TABLE cta.test_suite_results
+ADD COLUMN status_patterns JSON NULL AFTER buildtag;
+
+
+ALTER TABLE cta.test_case_results
+ADD COLUMN user_note VARCHAR(255) AFTER failed_test_step_result_id;
+
+ALTER TABLE cta.test_case_results
+ADD COLUMN user_comments VARCHAR(1000) AFTER user_note;
+
+
+CREATE TABLE `cta`.`recommended_actions` (
+  `idrecommended_actions` INT NOT NULL AUTO_INCREMENT,
+  `error_code` VARCHAR(45) NULL DEFAULT NULL,
+  `recommended_action` VARCHAR(100) NULL DEFAULT NULL,
+  PRIMARY KEY (`idrecommended_actions`));
+  
+INSERT INTO `cta`.`recommended_actions` (`error_code`, `recommended_action`) VALUES ('E0001', 'check for the UI changes');
+INSERT INTO `cta`.`recommended_actions` (`error_code`, `recommended_action`) VALUES ('E0002', 'check whether the xpath is pointing to correct element');
+INSERT INTO `cta`.`recommended_actions` (`error_code`, `recommended_action`) VALUES ('E0003', 'check for the UI changes');
+INSERT INTO `cta`.`recommended_actions` (`error_code`, `recommended_action`) VALUES ('E0005', 'check whether the xpath is valid as we cannot locate with it');
+INSERT INTO `cta`.`recommended_actions` (`error_code`, `recommended_action`) VALUES ('E0006', 'check for the UI changes');
+INSERT INTO `cta`.`recommended_actions` (`error_code`, `recommended_action`) VALUES ('E0007', 'check whether the xpath is pointing to correct element');
+INSERT INTO `cta`.`recommended_actions` (`error_code`, `recommended_action`) VALUES ('E0008', 'check whether the xpath is valid as we cannot locate with it');
+INSERT INTO `cta`.`recommended_actions` (`error_code`, `recommended_action`) VALUES ('E0009', 'check for the UI changes');
+INSERT INTO `cta`.`recommended_actions` (`error_code`, `recommended_action`) VALUES ('E0010', 'check whether the xpath is pointing to correct element');
+INSERT INTO `cta`.`recommended_actions` (`error_code`, `recommended_action`) VALUES ('E0011', 'check whether the xpath is valid as we cannot locate with it');
+INSERT INTO `cta`.`recommended_actions` (`error_code`, `recommended_action`) VALUES ('E0012', 'check whether the tab id is correct');
+INSERT INTO `cta`.`recommended_actions` (`error_code`, `recommended_action`) VALUES ('E0013', 'check whether the iframe is valid as we cannot locate with it');

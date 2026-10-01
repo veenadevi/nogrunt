@@ -1,0 +1,36 @@
+CREATE TABLE `cta`.`scheduler` (
+  `idscheduler` INT NOT NULL AUTO_INCREMENT,
+  `suiteid` INT NULL,
+  `time` DATETIME NULL,
+  `frequency` VARCHAR(45) NULL,
+  `status` INT NULL,
+  PRIMARY KEY (`idscheduler`),
+  INDEX `idsuite_idx` (`suiteid` ASC) VISIBLE,
+  CONSTRAINT `idsuite`
+    FOREIGN KEY (`suiteid`)
+    REFERENCES `cta`.`test_suite` (`idtest_suite`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+ALTER TABLE `cta`.`scheduler` 
+ADD COLUMN `subfrequency` VARCHAR(150) NULL DEFAULT NULL AFTER `status`;
+    
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('48', 'seleniumhubport', 'http://localhost:4444/', 'server and port');
+UPDATE `cta`.`sysprops` SET `value` = 'wd/hub' WHERE (`idsysprops` = '10');
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('49', 'gqlendpoint', 'graphql', 'graph ql end point');
+
+ALTER TABLE `cta`.`company` 
+ADD COLUMN `storagecleared` DATETIME NULL AFTER `approvalrequired`;
+
+ALTER TABLE `cta`.`company` 
+ADD COLUMN `lastclearedtcr` INT NOT NULL DEFAULT 0 AFTER `storagecleared`;
+
+ALTER TABLE `cta`.`company` 
+ADD COLUMN `storageClearedOn` VARCHAR(45) NULL AFTER `lastclearedtcr`,
+CHANGE COLUMN `storagecleared` `storageclearedTillDate` DATETIME NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`company` 
+CHANGE COLUMN `storageClearedOn` `storageClearedOn` DATETIME NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`company` 
+ADD COLUMN `storageclearancesuccessful` INT NULL DEFAULT 0 AFTER `storageClearedOn`;

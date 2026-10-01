@@ -1,0 +1,7 @@
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `endrange` VARCHAR(45) NULL AFTER `dynamicProcessed`,
+ADD COLUMN `scope` VARCHAR(45) NULL AFTER `endrange`,
+ADD COLUMN `pagename` VARCHAR(45) NULL AFTER `scope`,
+ADD COLUMN `pagenumber` INT NULL AFTER `pagename`;
+ALTER TABLE `cta`.`test_step_attr` 
+CHANGE COLUMN `pagenumber` `pagenumber` INT NULL DEFAULT '0' ;

@@ -1,0 +1,28 @@
+CREATE TABLE `cta`.`page_element_testcase` (
+  `idpage_element_testcase` INT NOT NULL AUTO_INCREMENT,
+  `testcaseid` INT NULL,
+  `idpage` INT NULL,
+  `elementid` INT NULL,
+  `recorded` INT NULL,
+  PRIMARY KEY (`idpage_element_testcase`),
+  INDEX `idpage_idx` (`idpage` ASC) VISIBLE,
+  INDEX `tcid_idx` (`testcaseid` ASC) VISIBLE,
+  INDEX `elementid_idx` (`elementid` ASC) VISIBLE,
+  CONSTRAINT `testcaseid`
+    FOREIGN KEY (`testcaseid`)
+    REFERENCES `cta`.`test_case` (`idtest_case`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `idpage`
+    FOREIGN KEY (`idpage`)
+    REFERENCES `cta`.`pages` (`pageid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `elementid`
+    FOREIGN KEY (`elementid`)
+    REFERENCES `cta`.`page_elements` (`elementid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+ALTER TABLE `cta`.`test_suite` 
+ADD COLUMN `synchedscenarios` INT NULL AFTER `resultsemail`;

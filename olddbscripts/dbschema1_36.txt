@@ -1,0 +1,32 @@
+ALTER TABLE `cta`.`elements` 
+ADD COLUMN `clickable` VARCHAR(45) NULL DEFAULT NULL AFTER `recordedxpath`,
+ADD COLUMN `recorded` VARCHAR(45) NULL DEFAULT 'false' AFTER `clickable`, RENAME TO  `cta`.`page_elements` ;
+
+
+CREATE TABLE `cta`.`testcase_page` (
+  `idtestcase_page` INT NOT NULL AUTO_INCREMENT,
+  `testcaseid` INT NULL,
+  `idpage` INT NULL,
+  `pageno` INT NULL,
+  PRIMARY KEY (`idtestcase_page`),
+  INDEX `pageid_idx` (`idpage` ASC) VISIBLE,
+  CONSTRAINT `page_id`
+    FOREIGN KEY (`idpage`)
+    REFERENCES `cta`.`pages` (`pageid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+ALTER TABLE `cta`.`page_elements` 
+CHANGE COLUMN `elementname` `elementname` VARCHAR(500) NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`testcase_page` 
+ADD COLUMN `prodid` INT NULL AFTER `pageno`,
+ADD INDEX `prod_idxx_idx` (`prodid` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`testcase_page` 
+ADD CONSTRAINT `prod_idxx`
+  FOREIGN KEY (`prodid`)
+  REFERENCES `cta`.`products` (`idproducts`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+    

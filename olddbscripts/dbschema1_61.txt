@@ -1,0 +1,5 @@
+ALTER TABLE `cta`.`api` 
+ADD COLUMN `headers` VARCHAR(1000) NULL DEFAULT NULL AFTER `url`;
+
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `envname` VARCHAR(45) NULL DEFAULT NULL AFTER `browser`;

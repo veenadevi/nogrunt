@@ -1,0 +1,3 @@
+ALTER TABLE `cta`.`products` 
+ADD COLUMN `updatesurl` VARCHAR(250) NULL AFTER `company`,
+ADD COLUMN `updatestoken` VARCHAR(150) NULL AFTER `updatesurl`;

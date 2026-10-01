@@ -1,0 +1,10 @@
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `customerEmail` VARCHAR(100) NULL DEFAULT NULL AFTER `teststepthreshold`,
+ADD COLUMN `customerPassword` VARCHAR(45) NULL DEFAULT NULL AFTER `customerEmail`,
+ADD COLUMN `EmailSelectionCriteria` VARCHAR(100) NULL DEFAULT NULL AFTER `customerPassword`,
+ADD COLUMN `EmailFilter` VARCHAR(100) NULL DEFAULT NULL AFTER `EmailSelectionCriteria`;
+
+ALTER TABLE `cta`.`company` 
+ADD COLUMN `registrationcheck` INT NULL DEFAULT 1 AFTER `status`,
+ADD COLUMN `companyurl` VARCHAR(50) NULL AFTER `registrationcheck`,
+ADD COLUMN `approvalrequired` INT NULL DEFAULT 0 AFTER `companyurl`;

@@ -1,0 +1,8 @@
+ALTER TABLE `cta`.`test_case_results` 
+ADD COLUMN `width` INT NULL AFTER `Browser`,
+ADD COLUMN `height` INT NULL AFTER `width`,
+ADD COLUMN `envurl` VARCHAR(1000) NULL AFTER `height`;
+
+
+ALTER TABLE `cta`.`envdetails` 
+CHANGE COLUMN `idenvdetails` `idenvdetails` INT NOT NULL AUTO_INCREMENT ;

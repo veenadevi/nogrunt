@@ -1,0 +1,7 @@
+1. tab and download times are now configurable
+2. Browser wa sblank when execution initited from results page
+3. Dashboard page is cached for 1 hr - so the results page should be faster
+
+
+
+

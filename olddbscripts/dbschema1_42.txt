@@ -1,0 +1,3 @@
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('50', 'uvicornurl', 'http://localhost:8000/insight', 'ML end point');
+
+INSERT INTO `cta`.`integration_static` (`id_integration_static`, `intname`, `adminattribute`) VALUES ('8', 'Impact Analysis', 'URL');

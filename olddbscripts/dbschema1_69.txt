@@ -1,0 +1,23 @@
+ALTER TABLE `cta`.`dashboard` 
+ADD COLUMN `testCasesExecution` INT NULL AFTER `lastexecuted`,
+ADD COLUMN `testCasesPassed` INT NULL AFTER `testCasesExecution`,
+ADD COLUMN `testCasesFailed` INT NULL AFTER `testCasesPassed`,
+ADD COLUMN `testCasesAborted` INT NULL AFTER `testCasesFailed`,
+ADD COLUMN `testCasesStopped` INT NULL AFTER `testCasesAborted`;
+
+
+ALTER TABLE `cta`.`dashboard` 
+CHANGE COLUMN `testCasesExecution` `testCasesExecution` INT NULL DEFAULT 0 ,
+CHANGE COLUMN `testCasesPassed` `testCasesPassed` INT NULL DEFAULT 0 ,
+CHANGE COLUMN `testCasesFailed` `testCasesFailed` INT NULL DEFAULT 0 ,
+CHANGE COLUMN `testCasesAborted` `testCasesAborted` INT NULL DEFAULT 0 ,
+CHANGE COLUMN `testCasesStopped` `testCasesStopped` INT NULL DEFAULT 0 ;
+
+ALTER TABLE `cta`.`test_suite_results` 
+ADD COLUMN `runtype` VARCHAR(45) NULL AFTER `totalCount`;
+
+ALTER TABLE `cta`.`test_suite` 
+ADD COLUMN `flakiness` INT NULL AFTER `indEmail`;
+
+ALTER TABLE `cta`.`test_suite` 
+CHANGE COLUMN `flakiness` `flakiness` DOUBLE NULL DEFAULT NULL ;

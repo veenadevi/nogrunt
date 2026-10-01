@@ -1,0 +1,6 @@
+CREATE TABLE cta.xpath (
+  idxpath INT NOT NULL AUTO_INCREMENT,
+  Test_Step_ID INT NULL,
+  Created_Date DATETIME NULL,
+  Xpath VARCHAR(1500) NULL,
+  PRIMARY KEY (idxpath));

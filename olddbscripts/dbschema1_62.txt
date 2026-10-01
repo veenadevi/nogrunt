@@ -1,0 +1,61 @@
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `beenanalysed` INT NULL DEFAULT 0 AFTER `proxyurl`;
+
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `imagesbaselined` INT NULL DEFAULT 0 AFTER `beenanalysed`;
+
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `baselinedate` DATETIME NULL AFTER `imagesbaselined`;
+
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `analysisdate` VARCHAR(45) NULL AFTER `beenanalysed`;
+
+ALTER TABLE `cta`.`test_case` 
+CHANGE COLUMN `analysisdate` `analysisdate` DATETIME NULL DEFAULT NULL ;
+
+INSERT INTO `cta`.`sysprops` (`name`, `value`, `comments`) VALUES ('queuesaveconsumercount', '5', 'No. of consumer thread to take value from the queue header');
+
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `tsSequence` INT NULL DEFAULT '-1' AFTER `createddate`;
+
+ALTER TABLE `cta`.`company` 
+ADD COLUMN `testcaseupdatedtill` INT NULL DEFAULT 0 AFTER `dashboardrefreshrate`;
+
+CREATE INDEX idx_test_step_result_status ON cta.test_step_result(Status);
+
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `getattribute` VARCHAR(45) NULL AFTER `indexcvrg`;
+
+CREATE INDEX idx_Executed_Date ON cta.test_step_result (Executed_Date);
+CREATE INDEX idx_Created_Date ON cta.test_step (createddate);
+CREATE INDEX idx_company ON cta.products (company);
+
+SET SESSION max_sp_recursion_depth = 1000; -- Adjust recursion depth if needed
+SET @batch_size = 10000; -- Adjust batch size as needed
+
+WITH RECURSIVE index_batch AS (
+  SELECT 0 AS offset
+  UNION ALL
+  SELECT offset + @batch_size
+  FROM index_batch
+  WHERE offset < (SELECT COUNT(*) FROM cta.test_step)
+)
+SELECT CONCAT('CREATE INDEX idx_createddate_', offset, ' ON cta.test_step (createddate) ', 
+              'ALGORITHM=INPLACE, LOCK=NONE, WAIT=0, ONLINE, ', 
+              'LIMIT ', @batch_size, ' OFFSET ', offset, ';') AS create_index_query
+FROM index_batch;
+
+SET SESSION max_sp_recursion_depth = 1000; -- Adjust recursion depth if needed
+SET @batch_size = 10000; -- Adjust batch size as needed
+
+WITH RECURSIVE index_batch AS (
+  SELECT 0 AS offset
+  UNION ALL
+  SELECT offset + @batch_size
+  FROM index_batch
+  WHERE offset < (SELECT COUNT(*) FROM cta.test_case)
+)
+SELECT CONCAT('CREATE INDEX idx_Created_Date_', offset, ' ON cta.test_case (Created_Date) ', 
+              'ALGORITHM=INPLACE, LOCK=NONE, WAIT=0, ONLINE, ', 
+              'LIMIT ', @batch_size, ' OFFSET ', offset, ';') AS create_index_query
+FROM index_batch;

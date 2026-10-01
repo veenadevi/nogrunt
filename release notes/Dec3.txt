@@ -1,0 +1,8 @@
+1. Search on page needs thorough testing - both record them and then test them - earlier we were searching for contains now we are searching for exact match
+2. We have made a major change in how the elements are selected - the sequence is - 1. Xpath , 2. first half of xpath, 3. second half of xpath, 3. alternate path comes from extension, 4. proximity approach - lets meet tomorrow and discuss how to test this
+3. user roles have been added, so now you can change role of a user and then for a module you can decide what permissions are needed for a role. SO basically for some users - you can have the recording page show up as read only
+4. the isdynamic toggle should work correctly now
+5. You can move test cases from 1 module to another
+6. register via a company URL.
+7. Search on page works now - test for both testdata and validation
+8. the click before enter of an input will now be ignored

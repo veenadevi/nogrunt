@@ -1,0 +1,15 @@
+ INSERT INTO `cta`.`sysprops` (`name`, `value`, `comments`) VALUES ('cleanupRetentionCount', '10', 'min executions for a testcase to NOT delete');
+INSERT INTO `cta`.`sysprops` (`name`, `value`, `comments`) VALUES ('cleanupRetentionDays', '15', 'min days for an execution to NOT delete');
+INSERT INTO `cta`.`sysprops` (`name`, `value`, `comments`) VALUES ('isCleanUpOn', 'false', 'flag to on/off cleanup process');
+
+ALTER TABLE cta.test_case
+ADD COLUMN lastCleanUpTry DATETIME DEFAULT NULL
+AFTER case_Type;
+
+ALTER TABLE cta.test_case
+ADD COLUMN lastDeletedResultId INT DEFAULT NULL
+AFTER lastCleanUpTry;
+
+ALTER TABLE cta.test_case
+ADD COLUMN cleanUpComments VARCHAR(500) DEFAULT NULL
+AFTER lastDeletedResultId;

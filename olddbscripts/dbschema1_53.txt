@@ -1,0 +1,2 @@
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('61', 'propfilebackuploc', 'C:\\\\Extensions\\\\NoGrunt\\\\', 'location for extension properties backup file');
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('62', 'propfilebackupname', 'bkproperties.file', 'name of the file');

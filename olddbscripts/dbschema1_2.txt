@@ -1,0 +1,24 @@
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `actualtime` INT NULL AFTER `screenshot`;
+
+ALTER TABLE `cta`.`test_step` 
+CHANGE COLUMN `actualtime` `actualtime` BIGINT NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `eventname` VARCHAR(45) NULL AFTER `actualtime`;
+
+ALTER TABLE `cta`.`test_suite` 
+ADD COLUMN `productid` INT NULL AFTER `Created_Date`;
+
+ALTER TABLE `cta`.`test_suite` 
+ADD INDEX `suiteproduct_idx` (`productid` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`test_suite` 
+ADD CONSTRAINT `suiteproduct`
+  FOREIGN KEY (`productid`)
+  REFERENCES `cta`.`products` (`idproducts`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `cta`.`test_suite_case_map` 
+CHANGE COLUMN `idTest_Suite_Case_Map` `idTest_Suite_Case_Map` INT NOT NULL AUTO_INCREMENT ;

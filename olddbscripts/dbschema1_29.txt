@@ -1,0 +1,44 @@
+ALTER TABLE `cta`.`scheduler` 
+ADD COLUMN `companyid` INT NULL AFTER `subfrequency`,
+ADD INDEX `idcompany_idx` (`companyid` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`scheduler` 
+ADD CONSTRAINT `idcompany2`
+  FOREIGN KEY (`companyid`)
+  REFERENCES `cta`.`company` (`idcompany`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  
+  CREATE TABLE `cta`.`scheduler_runs` (
+  `idscheduler_runs` INT NOT NULL AUTO_INCREMENT,
+  `scheduleid` INT NULL,
+  `executedTime` DATETIME NULL,
+  `scheduledTime` DATETIME NULL,
+  `scheduledFrequency` VARCHAR(45) NULL,
+  `scheduledsubfrequency` VARCHAR(45) NULL,
+  PRIMARY KEY (`idscheduler_runs`),
+  INDEX `idsched_idx` (`scheduleid` ASC) VISIBLE,
+  CONSTRAINT `idsched`
+    FOREIGN KEY (`scheduleid`)
+    REFERENCES `cta`.`scheduler` (`idscheduler`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+    ALTER TABLE `cta`.`scheduler` 
+DROP COLUMN `time`,
+ADD COLUMN `scheduledate` DATE NULL AFTER `companyid`,
+ADD COLUMN `scheduletime` TIME NULL AFTER `scheduledate`;
+
+ALTER TABLE `cta`.`scheduler_runs` 
+DROP COLUMN `scheduledTime`,
+DROP COLUMN `executedTime`;
+
+ALTER TABLE `cta`.`scheduler_runs` 
+ADD COLUMN `scheduleddate` DATE NULL AFTER `scheduledsubfrequency`,
+ADD COLUMN `scheduledtime` TIME NULL AFTER `scheduleddate`,
+ADD COLUMN `executeddate` DATE NULL AFTER `scheduledtime`,
+ADD COLUMN `executedtime` TIME NULL AFTER `executeddate`;
+
+ALTER TABLE `cta`.`scheduler` 
+ADD COLUMN `scheduleby` VARCHAR(45) NULL AFTER `scheduletime`;

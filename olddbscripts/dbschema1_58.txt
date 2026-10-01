@@ -1,0 +1,57 @@
+CREATE TABLE `cta`.`test_step_error` (
+  `idtest_step_error` INT NOT NULL AUTO_INCREMENT,
+  `test_step` INT NULL,
+  `errortype` VARCHAR(45) NULL,
+  PRIMARY KEY (`idtest_step_error`));
+  
+  CREATE TABLE `cta`.`test_step_errorkey` (
+  `idtest_step_errorkey` INT NOT NULL AUTO_INCREMENT,
+  `test_step_error` INT NULL,
+  `key` VARCHAR(45) NULL,
+  `error` VARCHAR(45) NULL,
+  `oldValue` VARCHAR(500) NULL,
+  `latestvalue` VARCHAR(500) NULL,
+  PRIMARY KEY (`idtest_step_errorkey`));
+  
+  
+  ALTER TABLE `cta`.`test_step_error` 
+ADD INDEX `testse_idx` (`test_step` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`test_step_error` 
+ADD CONSTRAINT `testse`
+  FOREIGN KEY (`test_step`)
+  REFERENCES `cta`.`test_step` (`idtest_step`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `cta`.`test_step_errorkey` 
+ADD INDEX `tsek_idx` (`test_step_error` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`test_step_errorkey` 
+ADD CONSTRAINT `tsek`
+  FOREIGN KEY (`test_step_error`)
+  REFERENCES `cta`.`test_step_error` (`idtest_step_error`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `cta`.`test_step_errorkey` 
+CHANGE COLUMN `key` `errorkey` VARCHAR(45) NULL DEFAULT NULL ,
+CHANGE COLUMN `error` `errorseverity` VARCHAR(45) NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`test_step_error` 
+ADD COLUMN `analysistcr` INT NULL AFTER `errortype`,
+ADD INDEX `tsettcr_idx` (`analysistcr` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`test_step_error` 
+ADD CONSTRAINT `tsettcr`
+  FOREIGN KEY (`analysistcr`)
+  REFERENCES `cta`.`test_case_results` (`idtest_case_results`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+ 
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('64', 'imagediffurl', 'http://localhost:8500/imagediff', 'Image diff end point');  
+
+ALTER TABLE `cta`.`page_elements` 
+ADD COLUMN `elementtype` VARCHAR(45) NULL AFTER `elementname`;
+
+

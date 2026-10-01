@@ -1,0 +1,12 @@
+1. test data processing bug fix - works now if testData is just ~users~ - earlier was going into infinite loop
+2. coverage flags
+3. javascript can now be fetched fom librray
+4. fixed broken logo
+5. fixed crash if github integration not setup
+6. add step also now refreshed authoring page
+7. element locator defaults to xpath
+8. icons now show up based on user type
+
+
+
+

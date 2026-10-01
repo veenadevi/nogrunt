@@ -1,0 +1,5 @@
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `nearestname` VARCHAR(100) NULL AFTER `script`,
+ADD COLUMN `parenttotargetcvrg` VARCHAR(1000) NULL AFTER `nearestname`,
+ADD COLUMN `uniquetoparentcvrg` VARCHAR(1000) NULL AFTER `parenttotargetcvrg`,
+ADD COLUMN `indexcvrg` INT NULL AFTER `uniquetoparentcvrg`;

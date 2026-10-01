@@ -1,0 +1,6 @@
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `gendateformat` VARCHAR(15) NULL AFTER `gendatalen`;
+
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `gendateoffset` VARCHAR(15) NULL AFTER `gendateformat`;
+

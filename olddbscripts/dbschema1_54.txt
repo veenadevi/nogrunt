@@ -1,0 +1,13 @@
+CREATE TABLE `cta`.`licenseinfo` (
+  `idlicenseinfo` INT NOT NULL AUTO_INCREMENT,
+  `testcasescount` INT NULL,
+  `validfor` INT NULL,
+  `validtill` DATETIME NULL,
+  PRIMARY KEY (`idlicenseinfo`));
+  
+  
+  ALTER TABLE `cta`.`licenseinfo` 
+ADD COLUMN `liccode` VARCHAR(45) NULL AFTER `validtill`;
+
+ALTER TABLE `cta`.`licenseinfo` 
+ADD UNIQUE INDEX `liccode_UNIQUE` (`liccode` ASC) VISIBLE;

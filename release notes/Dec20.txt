@@ -1,0 +1,3 @@
+removed co pilot button (ideally should be removed only for SaaS)
+Moved the db connection to the thraed - so the slowness when multiple people are recording should no longer happen, though updates might be a bit slow)
+

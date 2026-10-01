@@ -1,0 +1,45 @@
+CREATE TABLE `cta`.`foundelements` (
+  `idfoundelements` INT NOT NULL AUTO_INCREMENT,
+  `Test_Step_Results_Id` INT NULL DEFAULT NULL,
+  `outerhtml` VARCHAR(1000) NULL DEFAULT NULL,
+  PRIMARY KEY (`idfoundelements`));
+  
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `approved_element` VARCHAR(1000) NULL DEFAULT NULL AFTER `tcrid`;
+
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `isWait` VARCHAR(10) NULL DEFAULT NULL AFTER `cleanUpComments`;
+
+CREATE TABLE `cta`.`apicall_data` (
+  `idapicall_data` INT NOT NULL AUTO_INCREMENT,
+  `Test_Case_Id` INT NULL DEFAULT NULL,
+  `Test_Case_Results_Id` INT NULL DEFAULT NULL,
+  `url` VARCHAR(1000) NULL DEFAULT NULL,
+  `starttime` BIGINT NULL DEFAULT NULL,
+  `endtime` BIGINT NULL DEFAULT NULL,
+  `responsetime` BIGINT NULL DEFAULT NULL,
+  `statuscode` BIGINT NULL DEFAULT NULL,
+  PRIMARY KEY (`idapicall_data`));
+  
+ALTER TABLE `cta`.`apicall_data` 
+ADD COLUMN `Test_Step_Id` INT NULL DEFAULT NULL AFTER `statuscode`;
+
+ALTER TABLE `cta`.`apicall_data` 
+ADD COLUMN `Test_Step_Result_Id` INT NULL DEFAULT NULL AFTER `Test_Step_Id`;
+
+ALTER TABLE `cta`.`test_case_results` 
+ADD COLUMN `apicalls_count` INT NULL DEFAULT NULL AFTER `firstrun`;
+
+CREATE TABLE `cta`.`summarized_apidata` (
+  `idsummarized_apidata` INT NOT NULL AUTO_INCREMENT,
+  `Test_Case_Results_Id` INT NULL DEFAULT NULL,
+  `statuscode` BIGINT NULL DEFAULT NULL,
+  `count` INT NULL DEFAULT NULL,
+  `average_response_time` DOUBLE NULL DEFAULT NULL,
+  PRIMARY KEY (`idsummarized_apidata`));
+  
+  
+  INSERT INTO `cta`.`sysprops` (`name`, `value`, `comments`) VALUES ('apicapture', 'false', 'featureflag');
+  
+  ALTER TABLE cta.test_step 
+ADD COLUMN continueon_fail VARCHAR(10) NULL DEFAULT NULL AFTER ts_sequence;

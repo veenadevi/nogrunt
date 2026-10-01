@@ -1,0 +1,46 @@
+INSERT INTO `cta`.`user_roles` (`iduser_roles`, `user_role`) VALUES ('4', 'QA USER');
+INSERT INTO `cta`.`user_roles` (`iduser_roles`, `user_role`) VALUES ('5', 'QA ADMIN');
+INSERT INTO `cta`.`user_roles` (`iduser_roles`, `user_role`) VALUES ('6', 'DEV USER');
+INSERT INTO `cta`.`user_roles` (`iduser_roles`, `user_role`) VALUES ('7', 'DEV ADMIN');
+
+
+ALTER TABLE `cta`.`user_roles` 
+ADD COLUMN `static` INT NULL DEFAULT 0 AFTER `user_role`,
+ADD COLUMN `companyid` INT NULL AFTER `static`;
+
+ALTER TABLE `cta`.`test_suite` 
+ADD COLUMN `headless` INT NULL DEFAULT 1 AFTER `synchedscenarios`;
+
+
+CREATE TABLE `cta`.`modulepermission` (
+  `idmodulepermission` INT NOT NULL AUTO_INCREMENT,
+  `moduleid` INT NULL,
+  `roleid` INT NULL,
+  `permission` VARCHAR(45) NULL,
+  PRIMARY KEY (`idmodulepermission`),
+  INDEX `modperm_idx` (`moduleid` ASC) VISIBLE,
+  INDEX `modrole_idx` (`roleid` ASC) VISIBLE,
+  CONSTRAINT `modperm`
+    FOREIGN KEY (`moduleid`)
+    REFERENCES `cta`.`modules` (`idmodules`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `modrole`
+    FOREIGN KEY (`roleid`)
+    REFERENCES `cta`.`user_roles` (`iduser_roles`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+ALTER TABLE `cta`.`page_testcase_api` 
+ADD COLUMN `pagerelationid` INT NULL AFTER `prodid`,
+ADD INDEX `pagerelationid_idx` (`pagerelationid` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`page_testcase_api` 
+ADD CONSTRAINT `pagerelationid`
+  FOREIGN KEY (`pagerelationid`)
+  REFERENCES `cta`.`pagerelation` (`pagerelationid`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `uniqueisbackup` INT NULL DEFAULT 0 AFTER `emailcontent`;

@@ -1,0 +1,28 @@
+ALTER TABLE `cta`.`licenses` 
+ADD COLUMN `licusage` VARCHAR(500) NULL DEFAULT NULL AFTER `validtill`;
+
+
+CREATE TABLE `cta`.`licenseusage` (
+  `idlicenseusage` INT NOT NULL AUTO_INCREMENT,
+  `companyid` INT NULL,
+  `testcaseid` INT NULL DEFAULT NULL,
+  `testcasename` VARCHAR(250) NULL,
+  `key` INT NULL,
+  `datecreated` DATETIME NULL,
+  `createdBy` VARCHAR(45) NULL,
+  `licusage` VARCHAR(500) NULL,
+  PRIMARY KEY (`idlicenseusage`),
+  INDEX `liccomp_idx` (`companyid` ASC) VISIBLE,
+  INDEX `lictc_idx` (`testcaseid` ASC) VISIBLE,
+  CONSTRAINT `liccomp2`
+    FOREIGN KEY (`companyid`)
+    REFERENCES `cta`.`company` (`idcompany`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `lictc`
+    FOREIGN KEY (`testcaseid`)
+    REFERENCES `cta`.`test_case` (`idtest_case`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+    INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('60', 'licenselimiter', '~', 'License delimiter');

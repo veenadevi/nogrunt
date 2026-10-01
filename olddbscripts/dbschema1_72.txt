@@ -1,0 +1,50 @@
+ALTER TABLE `cta`.`api` 
+ADD COLUMN `tests` VARCHAR(1000) NULL AFTER `collection`;
+
+
+CREATE TABLE `cta`.`apiresults` (
+  `idapiresults` INT NOT NULL AUTO_INCREMENT,
+  `idapi` INT NULL,
+  `name` VARCHAR(250) NULL,
+  `executedby` VARCHAR(45) NULL,
+  `executeddate` DATETIME NULL,
+  `envurl` VARCHAR(250) NULL,
+  `type` VARCHAR(45) NULL,
+  `body` VARCHAR(10000) NULL,
+  `url` VARCHAR(1000) NULL,
+  `headers` VARCHAR(1000) NULL,
+  `tests` VARCHAR(1000) NULL,
+  `status` VARCHAR(45) NULL,
+  PRIMARY KEY (`idapiresults`),
+  INDEX `apiresults_idx` (`idapi` ASC) VISIBLE,
+  CONSTRAINT `apiresults`
+    FOREIGN KEY (`idapi`)
+    REFERENCES `cta`.`api` (`idapi`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+    
+    CREATE TABLE `cta`.`apiparamsresults` (
+  `idapiparamsresults` INT NOT NULL AUTO_INCREMENT,
+  `apiid` INT NULL,
+  `apiresultsid` INT NULL,
+  `keyname` VARCHAR(250) NULL,
+  `value` VARCHAR(4000) NULL,
+  PRIMARY KEY (`idapiparamsresults`),
+  INDEX `paramapi_idx` (`apiid` ASC) VISIBLE,
+  INDEX `paramresultid_idx` (`apiresultsid` ASC) VISIBLE,
+  CONSTRAINT `paramapi`
+    FOREIGN KEY (`apiid`)
+    REFERENCES `cta`.`api` (`idapi`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `paramresultid`
+    FOREIGN KEY (`apiresultsid`)
+    REFERENCES `cta`.`apiresults` (`idapiresults`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+    ALTER TABLE `cta`.`apiresults` 
+ADD COLUMN `response` VARCHAR(1000) NULL AFTER `status`,
+ADD COLUMN `statuscode` VARCHAR(45) NULL AFTER `response`;
+    

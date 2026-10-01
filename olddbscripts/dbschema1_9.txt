@@ -1,0 +1,84 @@
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `regex` VARCHAR(150) NULL AFTER `eventname`;
+
+ALTER TABLE `cta`.`userprofile` 
+ADD COLUMN `createdDate` DATETIME NULL AFTER `usertype`;
+
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `iframexpath` VARCHAR(500) NULL AFTER `regex`;
+
+ALTER TABLE `cta`.`test_step_result` 
+ADD COLUMN `filename` VARCHAR(250) NULL AFTER `issues`,
+ADD COLUMN `fileField` VARCHAR(500) NULL AFTER `filename`,
+ADD COLUMN `DBUrl` VARCHAR(250) NULL AFTER `fileField`,
+ADD COLUMN `DBUsername` VARCHAR(100) NULL AFTER `DBUrl`,
+ADD COLUMN `DBPwd` VARCHAR(100) NULL AFTER `DBUsername`,
+ADD COLUMN `DBQuery` VARCHAR(1000) NULL AFTER `DBPwd`,
+ADD COLUMN `DBType` VARCHAR(45) NULL AFTER `DBQuery`,
+ADD COLUMN `testdata_source` VARCHAR(45) NULL AFTER `DBType`,
+ADD COLUMN `gendataType` VARCHAR(45) NULL AFTER `testdata_source`,
+ADD COLUMN `gendatalen` INT NULL AFTER `gendataType`,
+ADD COLUMN `DBVersion` VARCHAR(45) NULL AFTER `gendatalen`,
+ADD COLUMN `clickable` INT NULL AFTER `DBVersion`,
+ADD COLUMN `regex` VARCHAR(150) NULL AFTER `clickable`,
+ADD COLUMN `iframexpath` VARCHAR(500) NULL AFTER `regex`;
+
+ALTER TABLE `cta`.`test_step` 
+CHANGE COLUMN `TestData` `TestData` VARCHAR(1000) NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`test_step_result` 
+CHANGE COLUMN `TestData` `TestData` VARCHAR(1000) NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`test_step` 
+CHANGE COLUMN `RecordedData` `RecordedData` VARCHAR(1000) NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`userprofile` 
+ADD UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE;
+;
+
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `altpath` VARCHAR(500) NULL AFTER `iframexpath`;
+
+ALTER TABLE `cta`.`test_step_result` 
+ADD COLUMN `altpath` VARCHAR(500) NULL AFTER `iframexpath`;
+
+ALTER TABLE `cta`.`test_suite` 
+ADD COLUMN `status` INT NULL AFTER `productid`;
+
+update cta.test_suite set status = 0 where idtest_suite > 0;
+
+CREATE TABLE `cta`.`test_suite_case_results` (
+  `idtest_suite_case_results` INT NOT NULL AUTO_INCREMENT,
+  `test_suite_id` INT NULL,
+  `test_case_id` INT NULL,
+  PRIMARY KEY (`idtest_suite_case_results`),
+  INDEX `tsid_idx` (`test_suite_id` ASC) VISIBLE,
+  INDEX `tcid_idx` (`test_case_id` ASC) VISIBLE,
+  CONSTRAINT `tsuiteid`
+    FOREIGN KEY (`test_suite_id`)
+    REFERENCES `cta`.`test_suite_results` (`idtest_suite_results`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `tcid`
+    FOREIGN KEY (`test_case_id`)
+    REFERENCES `cta`.`test_case_results` (`idtest_case_results`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+	
+	ALTER TABLE `cta`.`test_suite_case_results` 
+DROP FOREIGN KEY `tcid`,
+DROP FOREIGN KEY `tsuiteid`;
+ALTER TABLE `cta`.`test_suite_case_results` 
+CHANGE COLUMN `test_suite_id` `test_suite_results_id` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `test_case_id` `test_case_results_id` INT NULL DEFAULT NULL ;
+ALTER TABLE `cta`.`test_suite_case_results` 
+ADD CONSTRAINT `tcid`
+  FOREIGN KEY (`test_case_results_id`)
+  REFERENCES `cta`.`test_case_results` (`idtest_case_results`),
+ADD CONSTRAINT `tsuiteid`
+  FOREIGN KEY (`test_suite_results_id`)
+  REFERENCES `cta`.`test_suite_results` (`idtest_suite_results`);
+  
+  insert into  cta.sysprops set idsysprops = 16, name = "oracledatabasedriver", value = "oracle.jdbc.driver.OracleDriver" , comments ="Oracle driver";
+insert into cta.sysprops set idsysprops = 17, name = "mssqldatabasedriver", value = "com.microsoft.sqlserver.jdbc.SQLServerDriver" , comments ="SQL Server driver";
+insert into cta.sysprops set idsysprops = 18, name = "mysqldatabasedriver", value = "com.mysql.cj.jdbc.Driver" , comments ="MySQL DBr driver";

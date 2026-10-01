@@ -1,0 +1,1 @@
+insert into cta.sysprops set idsysprops = 34, name="javareactinternalurl", value="http://localhost:8080/KeyLogging/ReactApp", comments="need this as both service are on same box";

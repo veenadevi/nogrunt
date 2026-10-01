@@ -1,0 +1,12 @@
+1. codegen for shadowdom
+2. Coverage works on backend based on a flag
+3. Execution speed up
+4. now we show total size of test suite
+5. github integration now we get all the pages
+6. fix for multi run
+7. Javascript now works if there is no xpath also
+8. indownloaded files improvements
+
+
+
+

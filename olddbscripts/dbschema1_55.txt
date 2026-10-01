@@ -1,0 +1,11 @@
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `proxyurl` VARCHAR(150) NULL AFTER `coverageflag`;
+
+CREATE TABLE `cta`.`test_case_nlp` (
+  `idtest_case_nlp` INT NOT NULL AUTO_INCREMENT,
+  `test_case` INT NULL,
+  `nlpsteps` VARCHAR(5000) NULL,
+  PRIMARY KEY (`idtest_case_nlp`));
+  
+ALTER TABLE `cta`.`apidata` 
+ADD COLUMN `url` VARCHAR(500) NULL AFTER `createddate`;

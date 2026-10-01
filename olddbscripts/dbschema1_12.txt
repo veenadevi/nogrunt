@@ -1,0 +1,10 @@
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `wait` VARCHAR(45) NULL AFTER `outerhtml`,
+ADD COLUMN `waittime` INT NULL AFTER `wait`;
+
+insert into cta.sysprops set idsysprops=25, name="fileurl",value="https://file.nogrunt.com/KeyLogging/ReactApp", comments="To address prod issue with URL being same";
+
+ALTER TABLE `cta`.`apiparams` 
+CHANGE COLUMN `key` `keyname` VARCHAR(250) NULL DEFAULT NULL ;
+
+insert into cta.sysprops set idsysprops=26, name="testcaseexecutionsubject", value="Test Scenario Execution Results";

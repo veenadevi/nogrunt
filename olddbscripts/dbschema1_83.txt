@@ -1,0 +1,1 @@
+ALTER TABLE cta.company ADD COLUMN generate_multiple_locators VARCHAR(45) NOT NULL DEFAULT 'false';

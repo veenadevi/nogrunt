@@ -1,0 +1,7 @@
+1. Fix defect where if testDAta ends up as "~~" we were going into an infinite loop
+2. Mask password in log file
+3. Get only 50 past results for a test suite
+4. Completed Java Selenium code generation
+
+
+

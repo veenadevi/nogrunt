@@ -1,0 +1,7 @@
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `windowid` INT NULL DEFAULT NULL AFTER `tabid`;INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('69', 'chromeprofilepath', 'C:\\Users\\Deva\\AppData\\Local\\Google\\Chrome\\User Data', 'Folder where chrome profiles are stored on the nodes');
+
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('69', 'chromeprofilepath', 'C:\\Users\\Deva\\AppData\\Local\\Google\\Chrome\\User Data', 'Folder where chrome profiles are stored on the nodes');
+UPDATE `cta`.`sysprops` SET `value` = 'C:\\\\Users\\\\Deva\\\\AppData\\\\Local\\\\Google\\\\Chrome\\\\User Data' WHERE (`idsysprops` = '69');
+
+

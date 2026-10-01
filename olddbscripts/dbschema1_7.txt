@@ -1,0 +1,56 @@
+CREATE TABLE `cta`.`sysprops` (
+  `idsysprops` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(150) NULL,
+  `value` VARCHAR(1000) NULL,
+  `comments` VARCHAR(150) NULL,
+  PRIMARY KEY (`idsysprops`));
+  
+  CREATE TABLE `cta`.`custprops` (
+  `idcustprops` INT NOT NULL AUTO_INCREMENT,
+  `productid` INT NULL,
+  `name` VARCHAR(150) NULL,
+  `value` VARCHAR(1000) NULL,
+  `comments` VARCHAR(150) NULL,
+  PRIMARY KEY (`idcustprops`));
+  
+insert into cta.sysprops set idsysprops = 1 ,  name = 'databaseDriver', value = 'com.mysql.cj.jdbc.Driver', comments = 'Nogrunt DB Driver';
+insert into cta.sysprops set idsysprops = 2 ,  name = 'databaseUrl', value = 'jdbc:mysql://localhost:3306/cta', comments = 'Nogrunt DB URL';
+insert into cta.sysprops set idsysprops = 3 ,  name = 'databaseUsername', value = 'deva', comments = 'Nogrunt DB username';
+insert into cta.sysprops set idsysprops = 4 ,  name = 'databasePassword', value = 'deva', comments = 'Nogrunt DB Password';
+
+insert into cta.sysprops set idsysprops = 5 ,  name = 'downloadFolder', value = 'C:\\Nogrunt\\TestCases\\downloaded\\', comments = 'Folder to download files - not used much';
+insert into cta.sysprops set idsysprops = 6 ,  name = 'testcasesfolder', value = 'C:\\Nogrunt\\TestCases\\', comments = 'Folder to download test cases - not used much';
+
+insert into cta.sysprops set idsysprops = 7 ,  name = 'datadirectory', value = 'C:\\Nogrunt\\', comments = 'Root Dir for all assets to run the test cases and output - datadir - companyid - testcaseid- testrun -output - screenshot ';
+
+insert into cta.sysprops set idsysprops = 8 ,  name = 'webdriverchromedriver', value = 'C:\\Nogrunt\\libs\\chromedriver.exe', comments = 'Chrome driver';
+insert into cta.sysprops set idsysprops = 9 ,  name = 'webdriveredgedriver', value = 'C:\\Nogrunt\\libs\\msedgedriver.exe', comments = 'Edge driver';
+insert into cta.sysprops set idsysprops = 10 ,  name = 'seleniumhub', value = 'http://localhost:4444/wd/hub', comments = 'Selenium Hub';
+
+insert into cta.sysprops set idsysprops = 11 ,  name = 'reactappurl', value = 'http://localhost:3000', comments = 'URL of the reactapp';
+insert into cta.sysprops set idsysprops = 12 ,  name = 'javareacturl', value = 'http://localhost:9000/keyloggingv2/ReactApp', comments = 'URL of the API that serves as the backend for the react app';
+insert into cta.sysprops set idsysprops = 13 ,  name = 'javaexturl', value = 'http://localhost:8080/keyloggingv2/StepsServlet', comments = 'URL of the API that the extension talks to';
+insert into cta.sysprops set idsysprops = 14 ,  name = 'chatgpton', value = 'false', comments = 'Generate data using CHATGPT API';
+
+
+insert into cta.custprops set idcustprops = 1 ,  name = 'delimiter', value = '#', comments = 'Default Delimiter', productid = 0;
+insert into cta.custprops set idcustprops = 2 ,  name = 'testdatadelimiter', value = '~', comments = 'Delimiter while setting up test data', productid = 0;
+insert into cta.custprops set idcustprops = 3 ,  name = 'validatedelimiter', value = '~', comments = 'Delimiter while setting up validation', productid = 0;
+
+CREATE TABLE `cta`.`envdetails` (
+  `idenvdetails` INT NOT NULL,
+  `envname` VARCHAR(45) NULL,
+  `envurl` VARCHAR(1000) NULL,
+  `productid` INT NULL,
+  PRIMARY KEY (`idenvdetails`));
+  
+  insert into cta.envdetails set idenvdetails = 1, envname = 'STAGING', envurl = 'https://test.acviss.co', productid = 12;
+insert into cta.envdetails set idenvdetails = 2, envname = 'QA', envurl = 'https://test.acviss.co', productid = 12;
+insert into cta.envdetails set idenvdetails = 3, envname = 'PROD', envurl = 'https://test.acviss.co', productid = 12;
+insert into cta.envdetails set idenvdetails = 4, envname = 'INTEGRATION', envurl = 'https://test.acviss.co', productid = 12;
+
+insert into cta.sysprops set idsysprops = 15, name = 'webdriverfirefoxdriver', value = 'C:\\Nogrunt\\libs\\geckodriver.exe', comments = 'Firefox Driver';
+
+
+  
+  

@@ -1,0 +1,145 @@
+ALTER TABLE `cta`.`apiparams` 
+ADD COLUMN `valueType` VARCHAR(15) NULL AFTER `value`;
+
+
+CREATE TABLE `cta`.`apidefinition` (
+  `idapidefinition` INT NOT NULL AUTO_INCREMENT,
+  `moduleid` INT NULL,
+  `objectname` VARCHAR(250) NULL,
+  PRIMARY KEY (`idapidefinition`),
+  INDEX `defmod_idx` (`moduleid` ASC) VISIBLE,
+  CONSTRAINT `defmod`
+    FOREIGN KEY (`moduleid`)
+    REFERENCES `cta`.`modules` (`idmodules`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+    
+    CREATE TABLE `cta`.`apidefinitionparams` (
+  `idapidefinitionparams` INT NOT NULL AUTO_INCREMENT,
+  `idapidefinition` INT NULL,
+  `keyname` VARCHAR(250) NULL,
+  `value` VARCHAR(4000) NULL,
+  `valuetype` VARCHAR(15) NULL,
+  PRIMARY KEY (`idapidefinitionparams`),
+  INDEX `defparam_idx` (`idapidefinition` ASC) VISIBLE,
+  CONSTRAINT `defparam`
+    FOREIGN KEY (`idapidefinition`)
+    REFERENCES `cta`.`apidefinition` (`idapidefinition`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+    
+    ALTER TABLE `cta`.`apidefinitionparams` 
+ADD COLUMN `enum` VARCHAR(4000) NULL AFTER `valuetype`,
+ADD COLUMN `default` VARCHAR(500) NULL AFTER `enum`,
+CHANGE COLUMN `value` `value` VARCHAR(500) NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`apidefinitionparams` 
+CHANGE COLUMN `enum` `enumvalues` VARCHAR(4000) NULL DEFAULT NULL ,
+CHANGE COLUMN `default` `defaultvalue` VARCHAR(500) NULL DEFAULT NULL ;
+
+
+CREATE TABLE `cta`.`apiparamdeflink` (
+  `idapiparamdeflink` INT NOT NULL AUTO_INCREMENT,
+  `idapiparam` INT NULL,
+  `idapidefinition` INT NULL,
+  PRIMARY KEY (`idapiparamdeflink`),
+  INDEX `paramlink_idx` (`idapiparam` ASC) VISIBLE,
+  INDEX `deflink_idx` (`idapidefinition` ASC) VISIBLE,
+  CONSTRAINT `paramlink`
+    FOREIGN KEY (`idapiparam`)
+    REFERENCES `cta`.`apiparams` (`idapiparams`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `deflink`
+    FOREIGN KEY (`idapidefinition`)
+    REFERENCES `cta`.`apidefinition` (`idapidefinition`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+
+CREATE TABLE `cta`.`apiresponses` (
+  `idapiresponses` INT NOT NULL AUTO_INCREMENT,
+  `statuscode` INT NULL,
+  `description` VARCHAR(150) NULL,
+  `idapi` INT NULL,
+  PRIMARY KEY (`idapiresponses`),
+  INDEX `apires_idx` (`idapi` ASC) VISIBLE,
+  CONSTRAINT `apires`
+    FOREIGN KEY (`idapi`)
+    REFERENCES `cta`.`api` (`idapi`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+    
+    ALTER TABLE `cta`.`apiresponses` 
+CHANGE COLUMN `statuscode` `statuscode` VARCHAR(50) NULL DEFAULT NULL ;
+
+CREATE TABLE `cta`.`apicollection` (
+  `idapicollection` INT NOT NULL AUTO_INCREMENT,
+  `collectionname` VARCHAR(45) NULL,
+  `collectiondesc` VARCHAR(250) NULL,
+  PRIMARY KEY (`idapicollection`));
+  
+  
+  ALTER TABLE `cta`.`api` 
+ADD COLUMN `collection` INT NULL AFTER `versionStr`,
+ADD INDEX `apicoll_idx` (`collection` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`api` 
+ADD CONSTRAINT `apicoll`
+  FOREIGN KEY (`collection`)
+  REFERENCES `cta`.`apicollection` (`idapicollection`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  
+  ALTER TABLE `cta`.`apicollection` 
+ADD COLUMN `moduleid` INT NULL AFTER `collectiondesc`,
+ADD INDEX `modcoll_idx` (`moduleid` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`apicollection` 
+ADD CONSTRAINT `modcoll`
+  FOREIGN KEY (`moduleid`)
+  REFERENCES `cta`.`modules` (`idmodules`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  
+  CREATE TABLE `cta`.`apitests` (
+  `idapitests` INT NOT NULL AUTO_INCREMENT,
+  `apiid` INT NULL,
+  `testname` VARCHAR(45) NULL,
+  `testdesc` VARCHAR(150) NULL,
+  `bodyvalues` VARCHAR(10000) NULL,
+  `headervalue` VARCHAR(1000) NULL,
+  PRIMARY KEY (`idapitests`),
+  INDEX `apitestsid_idx` (`apiid` ASC) VISIBLE,
+  CONSTRAINT `apitestsid`
+    FOREIGN KEY (`apiid`)
+    REFERENCES `cta`.`api` (`idapi`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+    CREATE TABLE `cta`.`apitestsparam` (
+  `idapitestsparam` INT NOT NULL AUTO_INCREMENT,
+  `apitestsid` INT NULL,
+  `keyname` VARCHAR(250) NULL,
+  `value` VARCHAR(4000) NULL,
+  `valueType` VARCHAR(15) NULL,
+  PRIMARY KEY (`idapitestsparam`),
+  INDEX `testsparam_idx` (`apitestsid` ASC) VISIBLE,
+  CONSTRAINT `testsparam`
+    FOREIGN KEY (`apitestsid`)
+    REFERENCES `cta`.`apitests` (`idapitests`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+    ALTER TABLE `cta`.`api` 
+DROP FOREIGN KEY `apicoll`;
+ALTER TABLE `cta`.`api` 
+DROP INDEX `apicoll_idx` ;
+;
+

@@ -1,0 +1,15 @@
+ALTER TABLE `cta`.`page_elements` 
+ADD COLUMN `uniquename` VARCHAR(45) NULL DEFAULT NULL AFTER `status`;
+
+ALTER TABLE `cta`.`api` 
+ADD COLUMN `versionStr` VARCHAR(45) NULL AFTER `headers`;
+
+ALTER TABLE `cta`.`company` 
+ADD COLUMN `coveragetrigger` VARCHAR(45) NULL DEFAULT 'false' AFTER `backendcoverage`;
+
+ALTER TABLE `cta`.`test_step` 
+CHANGE COLUMN `iframexpath` `iframexpath` VARCHAR(1500) NULL DEFAULT NULL ,
+CHANGE COLUMN `outerhtml` `outerhtml` VARCHAR(4000) NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`apiparams` 
+ADD COLUMN `valueType` VARCHAR(15) NULL AFTER `value`;

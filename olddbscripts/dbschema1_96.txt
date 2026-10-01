@@ -1,0 +1,5 @@
+INSERT INTO cta.sysprops (name, value, comments)
+VALUES ('configIp', '192.168.1.17', 'Appium Server Ip for mobile');
+
+INSERT INTO cta.sysprops (name, value, comments)
+VALUES ('defaultwaittime', '60', 'in seconds - time to wait for element to be located');

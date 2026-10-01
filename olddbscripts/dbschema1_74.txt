@@ -1,0 +1,22 @@
+ALTER TABLE `cta`.`pagegroup` 
+CHANGE COLUMN `pagename` `pagename` VARCHAR(150) NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`apidata` 
+CHANGE COLUMN `url` `url` VARCHAR(1500) NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`pages` 
+CHANGE COLUMN `pagename` `pagename` VARCHAR(150) NULL DEFAULT NULL ;
+
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('73', 'phonepetesturl', 'https://api-preprod.phonepe.com/apis/pg-sandbox/', 'Use for testing');
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('74', 'phonepeprodurl', 'https://api.phonepe.com/apis/hermes/', 'Use in production');
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('75', 'phonepeendpoint', 'pg/v1/pay', 'Add to prod or test url before invoking url');
+
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `elementplaceholder` VARCHAR(100) NULL AFTER `ypos`,
+ADD COLUMN `elementplaceholderindex` INT NULL AFTER `elementplaceholder`;
+
+ALTER TABLE `cta`.`test_step_attr` 
+CHANGE COLUMN `elementplaceholderindex` `elementplaceholderindex` INT NULL DEFAULT -1 ;
+
+ALTER TABLE `cta`.`testcase_page` 
+ADD COLUMN `createddate` DATETIME(3) NULL AFTER `prodid`;

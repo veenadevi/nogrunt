@@ -1,0 +1,3 @@
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `enableaudio` INT NULL DEFAULT 0 AFTER `baselinedate`,
+ADD COLUMN `enablevideo` INT NULL DEFAULT 0 AFTER `enableaudio`;

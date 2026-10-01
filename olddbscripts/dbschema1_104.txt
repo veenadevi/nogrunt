@@ -1,0 +1,3 @@
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `condLogic` VARCHAR(45) NULL AFTER `nlp_closeBy`,
+ADD COLUMN `condexp` VARCHAR(1000) NULL AFTER `condLogic`;

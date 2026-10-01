@@ -1,0 +1,7 @@
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('79', 'ngrokurl', 'https://32dc-49-206-2-42.ngrok-free.app/keyloggingv2/ReactApp', 'For payment integration testing');
+
+ALTER TABLE `cta`.`userprofile` 
+ADD COLUMN `emailverified` INT NULL DEFAULT 0 AFTER `nooffailedattempts`;
+
+UPDATE `cta`.`sysprops` SET `name` = 'ngrokurlBE' WHERE (`idsysprops` = '79');
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`) VALUES ('80', 'ngrokurlFE', 'https://32dc-49-206-2-42.ngrok-free.app/');

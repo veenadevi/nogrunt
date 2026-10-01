@@ -1,0 +1,13 @@
+1. codegen for shadowdom enhancements
+2. Parallel run - fixed errors if node is down - was causing the suote to fail but the status was not being updated
+3. memory leaks updates
+4. support for headless and screen shot on error
+5. if is displayed is false try 3 times
+6. Abort if there arent enough threads available
+7. For merge workflow wait 5 mins after merge before lcosing the browser
+8. If no test steps have been executed - show appropriate error
+9. support for licensing
+
+
+
+

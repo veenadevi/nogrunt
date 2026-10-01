@@ -1,0 +1,27 @@
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `ss_status` VARCHAR(45) NULL DEFAULT NULL AFTER `videofilename`,
+ADD COLUMN `laststeprecordedtime` DATETIME NULL AFTER `ss_status`;
+
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `elementId` INT NULL AFTER `uniqueisbackup`,
+ADD INDEX `element_id_idx` (`elementId` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`test_step_attr` 
+ADD CONSTRAINT `element_id`
+  FOREIGN KEY (`elementId`)
+  REFERENCES `cta`.`page_elements` (`elementid`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+ALTER TABLE `cta`.`page_elements` 
+ADD COLUMN `nearestname` VARCHAR(500) NULL AFTER `recorded`;
+
+ALTER TABLE `cta`.`products` 
+DROP COLUMN `updatestoken`,
+DROP COLUMN `updatesurl`;
+
+ALTER TABLE `cta`.`products` 
+ADD COLUMN `gentype` VARCHAR(45) NULL DEFAULT 'full' AFTER `company`;
+
+UPDATE `cta`.`integration_static` SET `adminattribute` = 'Owner,Token,URL' WHERE (`id_integration_static` = '7');
+

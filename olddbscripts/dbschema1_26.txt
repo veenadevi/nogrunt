@@ -1,0 +1,13 @@
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('38', 'defaultDisplayWidth', '1920', 'Pixels');
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('39', 'defaultDisplayHeight', '1080', 'Pixels');
+
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `pageurl` VARCHAR(1000) NULL AFTER `color`;
+
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `uniquetext` VARCHAR(100) NULL AFTER `pageurl`,
+ADD COLUMN `uniquetoparent` VARCHAR(1000) NULL AFTER `uniquetext`,
+ADD COLUMN `parenttotarget` VARCHAR(1000) NULL AFTER `uniquetoparent`;
+
+UPDATE `cta`.`user_roles` SET `user_role` = 'USER' WHERE (`iduser_roles` = '2');
+UPDATE `cta`.`user_roles` SET `user_role` = 'COMPANYADMIN' WHERE (`iduser_roles` = '3');

@@ -1,0 +1,10 @@
+CREATE TABLE `cta`.`auditlog` (
+  `idauditlog` INT NOT NULL AUTO_INCREMENT,
+  `randomkey` INT NULL,
+  `user` VARCHAR(45) NULL,
+  `timestamp` DATETIME NULL,
+  `action` VARCHAR(45) NULL,
+  `object` VARCHAR(250) NULL,
+  `result` VARCHAR(250) NULL,
+  `additionaldetails` VARCHAR(250) NULL,
+  PRIMARY KEY (`idauditlog`));

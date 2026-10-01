@@ -1,0 +1,20 @@
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `forcenewsession` INT NULL DEFAULT 0 AFTER `enablevideo`;
+
+
+CREATE TABLE `cta`.`testcaseexecutionlog` (
+  `idtestcaseexecutionlog` INT NOT NULL AUTO_INCREMENT,
+  `Test_Case_Results_Id` INT NULL,
+  `message` VARCHAR(1500) NULL,
+  `Executed_By` VARCHAR(45) NULL,
+  `Executed_Date` DATETIME(3) NULL,
+  PRIMARY KEY (`idtestcaseexecutionlog`),
+  INDEX `tcrid_idx` (`Test_Case_Results_Id` ASC) VISIBLE,
+  CONSTRAINT `tcrid`
+    FOREIGN KEY (`Test_Case_Results_Id`)
+    REFERENCES `cta`.`test_case_results` (`idtest_case_results`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+    
+    INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('81', 'streamfilesize', '512', 'number in mb');

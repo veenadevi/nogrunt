@@ -1,0 +1,2 @@
+ALTER TABLE `cta`.`test_step_result` 
+ADD COLUMN `screenshot1` VARCHAR(250) NULL AFTER `altpath`;

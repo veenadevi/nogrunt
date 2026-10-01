@@ -1,0 +1,22 @@
+ALTER TABLE cta.test_case ADD case_Type varchar(255);
+
+CREATE TABLE `mobile_automation` (
+   `id` int NOT NULL AUTO_INCREMENT,
+   `action` varchar(255) DEFAULT NULL,
+   `device` varchar(255) DEFAULT NULL,
+   `element_id` varchar(255) DEFAULT NULL,
+   `idtest_step` int DEFAULT NULL,
+   `sequence_number` int DEFAULT NULL,
+   `strategy_map` text,
+   `android_uiautomator` text,
+   `xpath` text,
+   `id_strategy` text,
+   `test_case_id` int DEFAULT NULL,
+   `timestamp` datetime DEFAULT NULL,
+   `appium_timestamp` datetime DEFAULT NULL,
+   PRIMARY KEY (`id`),
+   KEY `mobtest_idx` (`idtest_step`),
+   CONSTRAINT `mobtest` FOREIGN KEY (`idtest_step`) REFERENCES `test_step` (`idtest_step`)
+ );
+
+ ALTER TABLE cta.test_step ADD ts_sequence int DEFAULT NULL;

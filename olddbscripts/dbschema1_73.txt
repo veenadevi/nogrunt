@@ -1,0 +1,5 @@
+ALTER TABLE `cta`.`test_suite` 
+ADD COLUMN `buildtag` VARCHAR(150) NULL AFTER `flakiness`;
+
+ALTER TABLE `cta`.`test_suite_results` 
+ADD COLUMN `buildtag` VARCHAR(150) NULL AFTER `runtype`;

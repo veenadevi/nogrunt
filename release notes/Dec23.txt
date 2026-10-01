@@ -1,0 +1,3 @@
+dependant on this sceario and dependant on other scenarions - reocrd and execute and confirm that it works
+indownloaded files and inemail is now available on modal window
+introduced db connnection pooling so whole application needs to be tested

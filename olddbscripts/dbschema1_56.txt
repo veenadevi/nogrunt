@@ -1,0 +1,1 @@
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`) VALUES ('63', 'awsregion', 'us-east-1');

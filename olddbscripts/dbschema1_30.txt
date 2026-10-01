@@ -1,0 +1,7 @@
+UPDATE cta.test_step SET DBPwd = NULL;
+
+UPDATE cta.test_step SET DBUsername = NULL;
+
+ALTER TABLE `cta`.`test_step` 
+CHANGE COLUMN `DBUsername` `apiid` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `DBPwd` `apiparam` VARCHAR(100) NULL DEFAULT NULL;

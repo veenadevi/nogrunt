@@ -1,0 +1,11 @@
+ALTER TABLE `cta`.`test_suite` 
+ADD COLUMN `width` INT NULL AFTER `status`,
+ADD COLUMN `height` INT NULL AFTER `width`,
+ADD COLUMN `browser` VARCHAR(45) NULL AFTER `height`,
+ADD COLUMN `envurl` VARCHAR(1000) NULL AFTER `browser`,
+ADD COLUMN `stopafterfailure` VARCHAR(45) NULL AFTER `envurl`,
+ADD COLUMN `rerunfailedtests` VARCHAR(45) NULL AFTER `stopafterfailure`;
+
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `browser` VARCHAR(45) NULL AFTER `height`,
+ADD COLUMN `envurl` VARCHAR(45) NULL AFTER `browser`;

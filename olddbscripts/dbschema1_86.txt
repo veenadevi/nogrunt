@@ -1,0 +1,6 @@
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `nonmatchingattributes` VARCHAR(500) NULL AFTER `typeindex`,
+ADD COLUMN `arenonmatchesapproved` INT NULL AFTER `nonmatchingattributes`,
+ADD COLUMN `approvedby` VARCHAR(100) NULL AFTER `arenonmatchesapproved`,
+ADD COLUMN `approveddate` DATETIME NULL AFTER `approvedby`,
+ADD COLUMN `tcrid` INT NULL AFTER `approveddate`;

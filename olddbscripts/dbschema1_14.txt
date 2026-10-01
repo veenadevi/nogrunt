@@ -1,0 +1,7 @@
+insert into cta.sysprops set idsysprops=31, name="crxlocation", value="https://clients2.googleusercontent.com/crx/blobs/Acy1k0bxLUYRI8qFfOXSwWQe6cZGDqw_ji-2xIP7NLessjr92_p7Kultt1wbdWUy2WY3dQodGFe4jNFw6U5uBP3XIv6B5NH4qENSI37whfP-xQMN47euAMZSmuWkqO8HZkBJxk5OnsNKCrVzlwBSXw/neankkcidljlljifcclgcecadeimmolp_main.crx", comments="crx file location";
+
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `recordedXpath` VARCHAR(500) NULL AFTER `manuallyAdded`;
+
+ALTER TABLE `cta`.`test_case_results` 
+ADD COLUMN `test_case_name` VARCHAR(250) NULL AFTER `envurl`;

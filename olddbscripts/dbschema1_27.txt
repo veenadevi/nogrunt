@@ -1,0 +1,54 @@
+CREATE TABLE `cta`.`branding` (
+  `idBranding` INT NOT NULL AUTO_INCREMENT,
+  `idCompany` INT NULL,
+  `primaryColor` VARCHAR(45) NULL,
+  `secondaryColor` VARCHAR(45) NULL,
+  `tertiaryColor` VARCHAR(45) NULL,
+  `brandLogo` VARCHAR(45) NULL,
+  PRIMARY KEY (`idBranding`),
+  INDEX `idCompany_idx` (`idCompany` ASC) VISIBLE,
+  CONSTRAINT `idCompany`
+    FOREIGN KEY (`idCompany`)
+    REFERENCES `cta`.`company` (`idcompany`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+);
+    
+    
+INSERT INTO `cta`.`sysprops` (`name`, `value`, `comments`) VALUES ('primaryColor', '#0FC6EE', 'Nogrunt Primary Color');
+INSERT INTO `cta`.`sysprops` (`name`, `value`, `comments`) VALUES ('secondaryColor', '#032F40', 'Nogrunt Secondary Color');
+INSERT INTO `cta`.`sysprops` (`name`, `value`, `comments`) VALUES ('tertiaryColor', '#D3DDE6', 'Nogrunt Tertiary Color');
+INSERT INTO `cta`.`sysprops` (`name`, `value`, `comments`) VALUES ('brandLogo', '_logo_1_.PNG', 'NoGruntLogo');
+
+CREATE TABLE `cta`.`apidata` (
+  `idapidata` INT NOT NULL AUTO_INCREMENT,
+  `testcase` INT NULL,
+  `extkey` INT NULL,
+  `randomString` VARCHAR(45) NULL,
+  `actualtime` BIGINT NULL,
+  PRIMARY KEY (`idapidata`),
+  INDEX `testcaseapi_idx` (`testcase` ASC) VISIBLE,
+  CONSTRAINT `testcaseapi`
+    FOREIGN KEY (`testcase`)
+    REFERENCES `cta`.`test_case` (`idtest_case`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `isDynamic` INT NULL DEFAULT 0 AFTER `parenttotarget`;
+
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `dynamicProcessed` INT NULL DEFAULT 0 AFTER `isDynamic`;
+
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `createddate` DATETIME(3) NULL AFTER `type`;
+
+ALTER TABLE `cta`.`apidata` 
+ADD COLUMN `createddate` DATETIME(3) NULL AFTER `actualtime`;
+
+ALTER TABLE cta.test_case_results
+MODIFY Executed_Date DATETIME(3);
+
+ALTER TABLE `cta`.`test_suite_results` 
+ADD COLUMN `parallelrun` VARCHAR(45) NULL AFTER `rerunfailedtests`;
+

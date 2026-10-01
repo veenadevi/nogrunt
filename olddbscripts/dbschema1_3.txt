@@ -1,0 +1,53 @@
+ALTER TABLE `cta`.`test_suite_case_map` 
+DROP FOREIGN KEY `TC_id`,
+DROP FOREIGN KEY `Test_Suite_Id`;
+ALTER TABLE `cta`.`test_suite_case_map` 
+CHANGE COLUMN `Test_Suite` `Test_Suite_Id` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `Test_Case` `Test_Case_Id` INT NULL DEFAULT NULL ;
+ALTER TABLE `cta`.`test_suite_case_map` 
+ADD CONSTRAINT `TC_id`
+  FOREIGN KEY (`Test_Case_Id`)
+  REFERENCES `cta`.`test_case` (`idtest_case`),
+ADD CONSTRAINT `Test_Suite_Id`
+  FOREIGN KEY (`Test_Suite_Id`)
+  REFERENCES `cta`.`test_suite` (`idtest_suite`);
+  
+  ALTER TABLE `cta`.`userprofile` 
+CHANGE COLUMN `iduserprofile` `iduserprofile` INT NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `cta`.`products` 
+DROP FOREIGN KEY `compprod`;
+ALTER TABLE `cta`.`products` 
+DROP INDEX `compprod_idx` ;
+;
+
+  
+  ALTER TABLE `cta`.`userprofile` 
+DROP FOREIGN KEY `usercomp`;
+ALTER TABLE `cta`.`userprofile` 
+DROP INDEX `usercomp_idx` ;
+;
+  
+ALTER TABLE `cta`.`company` 
+CHANGE COLUMN `idcompany` `idcompany` INT NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `cta`.`products` 
+ADD INDEX `compprod_idx` (`company` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`products` 
+ADD CONSTRAINT `compprod`
+  FOREIGN KEY (`company`)
+  REFERENCES `cta`.`company` (`idcompany`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `cta`.`userprofile` 
+ADD INDEX `usercomp_idx` (`company` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`userprofile` 
+ADD CONSTRAINT `usercomp`
+  FOREIGN KEY (`company`)
+  REFERENCES `cta`.`company` (`idcompany`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+

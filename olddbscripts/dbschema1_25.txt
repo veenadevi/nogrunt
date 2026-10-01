@@ -1,0 +1,7 @@
+CREATE TABLE `cta`.`test_step_attr` (
+  `idtest_step_attr` INT NOT NULL AUTO_INCREMENT,
+  `test_step` INT NULL,
+  `imgpath` VARCHAR(500) NULL,
+  `bgcolor` VARCHAR(45) NULL,
+  `color` VARCHAR(45) NULL,
+  PRIMARY KEY (`idtest_step_attr`));

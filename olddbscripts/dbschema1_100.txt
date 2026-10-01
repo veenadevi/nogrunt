@@ -1,0 +1,41 @@
+ALTER TABLE cta.test_step_attr
+ADD COLUMN is_nlp VARCHAR(10) DEFAULT NULL AFTER tcrid,
+ADD COLUMN nlp_action VARCHAR(255) DEFAULT NULL AFTER is_nlp,
+ADD COLUMN nlp_element VARCHAR(255) DEFAULT NULL AFTER nlp_action,
+ADD COLUMN nlp_testData VARCHAR(1000) DEFAULT NULL AFTER nlp_element;
+
+ALTER TABLE cta.test_step_attr
+ADD COLUMN nlp_closeBy VARCHAR(255) DEFAULT NULL AFTER nlp_testData;
+
+UPDATE `cta`.`sysprops` SET `value` = '/dashboard/app/productId/1?/testSuiteId/2?/resultSuiteId/3?/token/4?' WHERE (`idsysprops` = '36');
+
+INSERT INTO `cta`.`sysprops` (`name`, `value`, `comments`) VALUES ('tcresultsurlpart2', '/dashboard/app/companyId/1?/testCaseId/2?/resultCaseId/3?/token/4?', 'URL for TC results in email');
+
+ALTER TABLE cta.dashboard 
+ADD COLUMN isSummarized VARCHAR(10) NULL DEFAULT 'false' AFTER testCasesStopped;
+
+ALTER TABLE `cta`.`test_suite_results` 
+ADD COLUMN `5Percent` DOUBLE NULL DEFAULT NULL AFTER `depTcCountRunTwo`,
+ADD COLUMN `10Percent` DOUBLE NULL DEFAULT NULL AFTER `5Percent`,
+ADD COLUMN `15Percent` DOUBLE NULL DEFAULT NULL AFTER `10Percent`,
+ADD COLUMN `20Percent` DOUBLE NULL DEFAULT NULL AFTER `15Percent`,
+ADD COLUMN `25Percent` DOUBLE NULL DEFAULT NULL AFTER `20Percent`,
+ADD COLUMN `30Percent` DOUBLE NULL DEFAULT NULL AFTER `25Percent`,
+ADD COLUMN `35Percent` DOUBLE NULL DEFAULT NULL AFTER `30Percent`,
+ADD COLUMN `40Percent` DOUBLE NULL DEFAULT NULL AFTER `35Percent`,
+ADD COLUMN `45Percent` DOUBLE NULL DEFAULT NULL AFTER `40Percent`,
+ADD COLUMN `50Percent` DOUBLE NULL DEFAULT NULL AFTER `45Percent`,
+ADD COLUMN `55Percent` DOUBLE NULL DEFAULT NULL AFTER `50Percent`,
+ADD COLUMN `60Percent` DOUBLE NULL DEFAULT NULL AFTER `55Percent`,
+ADD COLUMN `65Percent` DOUBLE NULL DEFAULT NULL AFTER `60Percent`,
+ADD COLUMN `70Percent` DOUBLE NULL DEFAULT NULL AFTER `65Percent`,
+ADD COLUMN `75Percent` DOUBLE NULL DEFAULT NULL AFTER `70Percent`,
+ADD COLUMN `80Percent` DOUBLE NULL DEFAULT NULL AFTER `75Percent`,
+ADD COLUMN `85Percent` DOUBLE NULL DEFAULT NULL AFTER `80Percent`,
+ADD COLUMN `90Percent` DOUBLE NULL DEFAULT NULL AFTER `85Percent`,
+ADD COLUMN `95Percent` DOUBLE NULL DEFAULT NULL AFTER `90Percent`,
+ADD COLUMN `100Percent` DOUBLE NULL DEFAULT NULL AFTER `95Percent`;
+
+ALTER TABLE `cta`.`test_suite` 
+ADD COLUMN `initialvariables` JSON NULL DEFAULT NULL AFTER `rerun_in_parallel`;
+

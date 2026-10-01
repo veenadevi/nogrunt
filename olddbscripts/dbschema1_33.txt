@@ -1,0 +1,40 @@
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `testcasedescription` VARCHAR(500) NULL AFTER `Test_Case`,
+ADD COLUMN `videofilename` VARCHAR(45) NULL AFTER `testcasethreshold`;
+
+
+CREATE TABLE `cta`.`integration` (
+  `integrationid` INT NOT NULL AUTO_INCREMENT,
+  `productid` INT NULL,
+  `intname` VARCHAR(45) NULL DEFAULT NULL,
+  `adminprop` VARCHAR(2000) NULL DEFAULT NULL,
+  `userprop` VARCHAR(2000) NULL DEFAULT NULL,
+  PRIMARY KEY (`integrationid`),
+  INDEX `prodid_idx` (`productid` ASC) VISIBLE,
+  CONSTRAINT `produid`
+    FOREIGN KEY (`productid`)
+    REFERENCES `cta`.`products` (`idproducts`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+    
+ALTER TABLE `cta`.`integration` ADD INDEX `intName_idx` (`intname` ASC);
+
+CREATE TABLE `cta`.`integration_static` (
+  `id_integration_static` INT NOT NULL AUTO_INCREMENT,
+  `intname` VARCHAR(45) NULL,
+  `adminattribute` VARCHAR(100) NULL,
+  `userattribute` VARCHAR(100) NULL,
+  PRIMARY KEY (`id_integration_static`),
+  INDEX `IntName_idx` (`intname` ASC) VISIBLE,
+  CONSTRAINT `IntName`
+    FOREIGN KEY (`intname`)
+    REFERENCES `cta`.`integration` (`intname`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+ALTER TABLE `cta`.`integration_static` DROP FOREIGN KEY `IntName`;
+ALTER TABLE `cta`.`integration_static` DROP INDEX `IntName_idx` ;
+
+ALTER TABLE `cta`.`integration` 
+ADD COLUMN `status` INT NULL DEFAULT 0 AFTER `userprop`;

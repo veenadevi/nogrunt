@@ -1,0 +1,11 @@
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `inlinedepedence` INT NULL AFTER `tsSequence`,
+ADD INDEX `inline_idx` (`inlinedepedence` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`test_step` 
+ADD CONSTRAINT `inline`
+  FOREIGN KEY (`inlinedepedence`)
+  REFERENCES `cta`.`test_case` (`idtest_case`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  

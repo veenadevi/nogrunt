@@ -1,0 +1,177 @@
+CREATE DATABASE `cta` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+CREATE TABLE `company` (
+  `idcompany` int NOT NULL,
+  `companyname` varchar(45) DEFAULT NULL,
+  `companycontactname` varchar(45) DEFAULT NULL,
+  `contactemail` varchar(250) DEFAULT NULL,
+  `contactphone` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`idcompany`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `products` (
+  `idproducts` int NOT NULL,
+  `productname` varchar(45) DEFAULT NULL,
+  `company` int DEFAULT NULL,
+  PRIMARY KEY (`idproducts`),
+  KEY `compprod_idx` (`company`),
+  CONSTRAINT `compprod` FOREIGN KEY (`company`) REFERENCES `company` (`idcompany`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `modules` (
+  `idmodules` int NOT NULL,
+  `modulename` varchar(45) DEFAULT NULL,
+  `product` int DEFAULT NULL,
+  PRIMARY KEY (`idmodules`),
+  KEY `modprod_idx` (`product`),
+  CONSTRAINT `modprod` FOREIGN KEY (`product`) REFERENCES `products` (`idproducts`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `properties` (
+  `idproperties` int NOT NULL,
+  `propname` varchar(100) DEFAULT NULL,
+  `propvalue` varchar(100) DEFAULT NULL,
+  `product` int DEFAULT NULL,
+  PRIMARY KEY (`idproperties`),
+  KEY `propprod_idx` (`product`),
+  CONSTRAINT `propprod` FOREIGN KEY (`product`) REFERENCES `products` (`idproducts`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `test_case` (
+  `idtest_case` int NOT NULL AUTO_INCREMENT,
+  `Test_Case` varchar(250) DEFAULT NULL,
+  `XLS_Location` varchar(250) DEFAULT NULL,
+  `Version` int DEFAULT NULL,
+  `Created_By` varchar(45) DEFAULT NULL,
+  `Created_Date` datetime DEFAULT NULL,
+  `SaveType` varchar(10) DEFAULT NULL,
+  `Status` int DEFAULT '0',
+  `extKey` int DEFAULT NULL,
+  `Module` int DEFAULT NULL,
+  PRIMARY KEY (`idtest_case`)
+) ENGINE=InnoDB AUTO_INCREMENT=286 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+CREATE TABLE `test_case_results` (
+  `idtest_case_results` int NOT NULL AUTO_INCREMENT,
+  `Test_Case_Id` int NOT NULL,
+  `Status` varchar(10) DEFAULT NULL,
+  `Executed_By` varchar(50) DEFAULT NULL,
+  `Executed_Date` datetime DEFAULT NULL,
+  `Duration` bigint DEFAULT NULL,
+  `Browser` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idtest_case_results`),
+  KEY `tcaseid_idx` (`Test_Case_Id`),
+  CONSTRAINT `tcaseid` FOREIGN KEY (`Test_Case_Id`) REFERENCES `test_case` (`idtest_case`)
+) ENGINE=InnoDB AUTO_INCREMENT=616 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `test_step` (
+  `idtest_step` int NOT NULL AUTO_INCREMENT,
+  `Test_Case_Id` int DEFAULT NULL,
+  `Step_Number` int DEFAULT NULL,
+  `Page_Name` varchar(45) DEFAULT NULL,
+  `Page_Description` varchar(250) DEFAULT NULL,
+  `Object_Xpath` varchar(500) DEFAULT NULL,
+  `Keyword` varchar(45) DEFAULT NULL,
+  `Action` varchar(45) DEFAULT NULL,
+  `Flow` varchar(45) DEFAULT NULL,
+  `TestData` varchar(250) DEFAULT NULL,
+  `VarName` varchar(45) DEFAULT NULL,
+  `ValDevice` varchar(45) DEFAULT NULL,
+  `extKey` int DEFAULT NULL,
+  `eventTime` double DEFAULT NULL,
+  `RecordedData` varchar(250) DEFAULT NULL,
+  `filename` varchar(250) DEFAULT NULL,
+  `fileField` varchar(500) DEFAULT NULL,
+  `DBUrl` varchar(250) DEFAULT NULL,
+  `DBUsername` varchar(100) DEFAULT NULL,
+  `DBPwd` varchar(100) DEFAULT NULL,
+  `DBQuery` varchar(1000) DEFAULT NULL,
+  `status` int DEFAULT '0',
+  `DBType` varchar(45) DEFAULT NULL,
+  `testdata_source` varchar(45) DEFAULT 'AsRecorded',
+  PRIMARY KEY (`idtest_step`),
+  UNIQUE KEY `constraint_name` (`Test_Case_Id`,`Object_Xpath`,`Keyword`,`Action`,`eventTime`),
+  KEY `testcase2_idx` (`Test_Case_Id`),
+  CONSTRAINT `testcase2` FOREIGN KEY (`Test_Case_Id`) REFERENCES `test_case` (`idtest_case`)
+) ENGINE=InnoDB AUTO_INCREMENT=11455 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `test_step_result` (
+  `idtest_step_result` int NOT NULL AUTO_INCREMENT,
+  `Step_Number` int DEFAULT NULL,
+  `Page_Name` varchar(45) DEFAULT NULL,
+  `Page_Description` varchar(250) DEFAULT NULL,
+  `Object_Xpath` varchar(1000) DEFAULT NULL,
+  `Keyword` varchar(45) DEFAULT NULL,
+  `Action` varchar(45) DEFAULT NULL,
+  `Flow` varchar(45) DEFAULT NULL,
+  `TestData` varchar(250) DEFAULT NULL,
+  `VarName` varchar(45) DEFAULT NULL,
+  `Status` varchar(45) DEFAULT NULL,
+  `Failure_Screenshot_Location` varchar(250) DEFAULT NULL,
+  `Test_Step` int DEFAULT NULL,
+  `Executed_By` varchar(45) DEFAULT NULL,
+  `Duration` int DEFAULT NULL,
+  `Test_Case_Results_Id` int DEFAULT NULL,
+  `ValDevice` varchar(45) DEFAULT NULL,
+  `Executed_Date` datetime DEFAULT NULL,
+  PRIMARY KEY (`idtest_step_result`),
+  KEY `teststep_idx` (`Test_Step`),
+  KEY `tcri_idx` (`Test_Case_Results_Id`),
+  CONSTRAINT `tcri` FOREIGN KEY (`Test_Case_Results_Id`) REFERENCES `test_case_results` (`idtest_case_results`),
+  CONSTRAINT `teststep` FOREIGN KEY (`Test_Step`) REFERENCES `test_step` (`idtest_step`)
+) ENGINE=InnoDB AUTO_INCREMENT=10438 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `test_suite` (
+  `idtest_suite` int NOT NULL AUTO_INCREMENT,
+  `Test_Suite` varchar(250) DEFAULT NULL,
+  `Version` int DEFAULT NULL,
+  `Created_By` varchar(45) DEFAULT NULL,
+  `Created_Date` datetime DEFAULT NULL,
+  PRIMARY KEY (`idtest_suite`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `test_suite_case_map` (
+  `idTest_Suite_Case_Map` int NOT NULL,
+  `Test_Suite` int DEFAULT NULL,
+  `Test_Case` int DEFAULT NULL,
+  PRIMARY KEY (`idTest_Suite_Case_Map`),
+  KEY `Test_Suite_Id_idx` (`Test_Suite`),
+  KEY `TC_id_idx` (`Test_Case`),
+  CONSTRAINT `TC_id` FOREIGN KEY (`Test_Case`) REFERENCES `test_case` (`idtest_case`),
+  CONSTRAINT `Test_Suite_Id` FOREIGN KEY (`Test_Suite`) REFERENCES `test_suite` (`idtest_suite`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `test_suite_results` (
+  `idtest_suite_results` int NOT NULL,
+  `Test_Suite_Id` int DEFAULT NULL,
+  `Status` varchar(10) DEFAULT NULL,
+  `Executed_By` varchar(50) DEFAULT NULL,
+  `Executed_Date` datetime DEFAULT NULL,
+  `Duration` bigint DEFAULT NULL,
+  PRIMARY KEY (`idtest_suite_results`),
+  KEY `TSID_idx` (`Test_Suite_Id`),
+  CONSTRAINT `TSID` FOREIGN KEY (`Test_Suite_Id`) REFERENCES `test_suite` (`idtest_suite`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `userprofile` (
+  `iduserprofile` int NOT NULL,
+  `username` varchar(100) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `company` int DEFAULT NULL,
+  `firstname` varchar(45) DEFAULT NULL,
+  `lastname` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`iduserprofile`),
+  KEY `usercomp_idx` (`company`),
+  CONSTRAINT `usercomp` FOREIGN KEY (`company`) REFERENCES `company` (`idcompany`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

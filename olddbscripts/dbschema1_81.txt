@@ -1,0 +1,6 @@
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `data_value` VARCHAR(250) NULL AFTER `classnameindex`,
+ADD COLUMN `data_value_index` INT NULL AFTER `data_value`;
+
+ALTER TABLE `cta`.`test_step_attr` 
+CHANGE COLUMN `classname` `classname` VARCHAR(500) NULL DEFAULT NULL ;

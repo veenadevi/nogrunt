@@ -1,0 +1,11 @@
+ALTER TABLE `cta`.`test_suite` 
+ADD COLUMN `analysis` INT NULL DEFAULT '0' AFTER `buildtag`;
+
+ALTER TABLE `cta`.`test_case_results` 
+ADD COLUMN `issuetype` VARCHAR(45) NULL AFTER `nodeUri`;
+
+ALTER TABLE `cta`.`test_case_results` 
+ADD COLUMN `issues` VARCHAR(1000) NULL AFTER `issuetype`;
+
+ALTER TABLE `cta`.`test_case_results` 
+ADD COLUMN `failed_test_step_result_id` INT NULL AFTER `issues`;

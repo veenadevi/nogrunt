@@ -1,0 +1,4 @@
+insert into cta.integration_static set id_integration_static =1, intname = "Azure Dev Ops", adminattribute="URL,Token", userattribute="WorkItemId";
+insert into cta.integration_static set id_integration_static =2, intname = "MS Teams Channel", adminattribute="URL", userattribute="";
+insert into cta.integration_static set id_integration_static =3, intname = "Jira", adminattribute="Username,Password,URL", userattribute="IssueId";
+insert into cta.integration_static set id_integration_static =4, intname = "Slack", adminattribute="ChannelURL", userattribute="";

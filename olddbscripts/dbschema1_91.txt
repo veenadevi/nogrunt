@@ -1,0 +1,2 @@
+ALTER TABLE cta.test_step_result 
+ADD COLUMN foundby VARCHAR(45) NULL DEFAULT NULL AFTER outerhtml;

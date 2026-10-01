@@ -1,0 +1,5 @@
+For each test case run now the sessions id and node are captured
+Audit should be back working now
+Hover functionality introduced - needs test case in the suite
+
+

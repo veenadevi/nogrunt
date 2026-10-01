@@ -1,0 +1,24 @@
+ALTER TABLE cta.test_suite_results 
+ADD COLUMN depTcCountRunOne INT AFTER isIgnored;
+
+ALTER TABLE cta.test_suite_results 
+ADD COLUMN depTcCountRunTwo INT AFTER depTcCountRunOne;
+
+ALTER TABLE cta.test_suite_results 
+ADD COLUMN firstRun_passCount INT NULL DEFAULT NULL AFTER isIgnored,
+ADD COLUMN firstRun_failCount INT NULL DEFAULT NULL AFTER firstRun_passCount,
+ADD COLUMN secondRun_passCount INT NULL DEFAULT NULL AFTER firstRun_failCount,
+ADD COLUMN secondRun_failCount INT NULL DEFAULT NULL AFTER secondRun_passCount;
+
+ALTER TABLE cta.test_case_results 
+ADD COLUMN warning VARCHAR(45) NULL DEFAULT NULL AFTER user_comments;
+
+ALTER TABLE cta.test_suite 
+ADD COLUMN threadcount INT NULL DEFAULT '0' AFTER analysis;
+
+ALTER TABLE cta.test_case_results 
+ADD COLUMN firstrun VARCHAR(45) NULL DEFAULT 'true' AFTER warning;
+
+ALTER TABLE cta.test_suite 
+ADD COLUMN rerun_in_parallel VARCHAR(45) NULL DEFAULT NULL AFTER threadcount;
+

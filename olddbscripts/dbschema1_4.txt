@@ -1,0 +1,25 @@
+CREATE TABLE `cta`.`user_roles` (
+  `iduser_roles` INT NOT NULL AUTO_INCREMENT,
+  `user_role` VARCHAR(45) NULL,
+  PRIMARY KEY (`iduser_roles`));
+  
+  insert into cta.user_roles set iduser_roles= 1 , user_role = 'SUPER';
+insert into cta.user_roles set iduser_roles= 2 , user_role = 'COMPANYADMIN';
+insert into cta.user_roles set iduser_roles= 3 , user_role = 'USER';
+
+ALTER TABLE `cta`.`userprofile` 
+ADD COLUMN `usertype` INT NULL AFTER `phonenumber`,
+ADD INDEX `usertype_idx` (`usertype` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`userprofile` 
+ADD CONSTRAINT `usertype`
+  FOREIGN KEY (`usertype`)
+  REFERENCES `cta`.`user_roles` (`iduser_roles`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  update cta.userprofile set usertype = 3;
+  
+  ALTER TABLE `cta`.`company` 
+DROP INDEX `compUnique` ;
+;

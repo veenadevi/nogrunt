@@ -1,0 +1,11 @@
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `testcasethreshold` INT NULL AFTER `copiedfrom`;
+
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `teststepthreshold` INT NULL AFTER `tabid`;
+
+ALTER TABLE `cta`.`test_case_results` 
+ADD COLUMN `ThresholdStatus` VARCHAR(10) NULL AFTER `test_case_name`;
+
+ALTER TABLE `cta`.`test_step_result` 
+ADD COLUMN `ThreshholdStatus` VARCHAR(45) NULL AFTER `screenshot1`;

@@ -1,0 +1,2 @@
+UPDATE `cta`.`sysprops` SET `name` = 'mlSummary', `value` = 'http://localhost:9010' WHERE (`idsysprops` = '50');  
+  

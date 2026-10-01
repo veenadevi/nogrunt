@@ -1,0 +1,128 @@
+ALTER TABLE `cta`.`modules` 
+DROP FOREIGN KEY `modprod`;
+ALTER TABLE `cta`.`modules` 
+DROP INDEX `modprod_idx` ;
+;
+
+ALTER TABLE `cta`.`modules` 
+CHANGE COLUMN `idmodules` `idmodules` INT NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `cta`.`properties` 
+DROP FOREIGN KEY `propprod`;
+ALTER TABLE `cta`.`properties` 
+DROP INDEX `propprod_idx` ;
+;
+
+ALTER TABLE `cta`.`properties` 
+CHANGE COLUMN `idproperties` `idproperties` INT NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `cta`.`test_suite` 
+DROP FOREIGN KEY `suiteproduct`;
+ALTER TABLE `cta`.`test_suite` 
+DROP INDEX `suiteproduct_idx` ;
+;
+
+
+
+ALTER TABLE `cta`.`products` 
+DROP FOREIGN KEY `compprod`;
+
+ALTER TABLE `cta`.`products` 
+DROP INDEX `compprod_idx` ;
+;
+
+ALTER TABLE `cta`.`products` 
+CHANGE COLUMN `idproducts` `idproducts` INT NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `cta`.`products` 
+ADD INDEX `compprod_idx` (`company` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`products` 
+ADD CONSTRAINT `compprod`
+  FOREIGN KEY (`company`)
+  REFERENCES `cta`.`company` (`idcompany`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `cta`.`test_suite_results` 
+CHANGE COLUMN `idtest_suite_results` `idtest_suite_results` INT NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `cta`.`test_suite` 
+ADD INDEX `suiteproduct_idx` (`productid` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`test_suite` 
+ADD CONSTRAINT `suiteproduct`
+  FOREIGN KEY (`productid`)
+  REFERENCES `cta`.`products` (`idproducts`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `cta`.`properties` 
+ADD INDEX `propprod_idx` (`product` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`properties` 
+ADD CONSTRAINT `propprod`
+  FOREIGN KEY (`product`)
+  REFERENCES `cta`.`products` (`idproducts`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `cta`.`modules` 
+ADD INDEX `modprod_idx` (`product` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`modules` 
+ADD CONSTRAINT `modprod`
+  FOREIGN KEY (`product`)
+  REFERENCES `cta`.`products` (`idproducts`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  
+  
+CREATE TABLE `cta`.`urls` (
+  `idurls` INT NOT NULL AUTO_INCREMENT,
+  `urls` VARCHAR(1024) NULL,
+  `productid` INT NULL,
+  PRIMARY KEY (`idurls`),
+  INDEX `urlprod_idx` (`productid` ASC) VISIBLE,
+  CONSTRAINT `urlprod`
+    FOREIGN KEY (`productid`)
+    REFERENCES `cta`.`products` (`idproducts`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+CREATE TABLE `cta`.`resolutions` (
+  `idresolutions` INT NOT NULL AUTO_INCREMENT,
+  `width` INT NULL,
+  `height` INT NULL,
+  `productid` INT NULL,
+  PRIMARY KEY (`idresolutions`),
+  INDEX `resprod_idx` (`productid` ASC) VISIBLE,
+  CONSTRAINT `resprod`
+    FOREIGN KEY (`productid`)
+    REFERENCES `cta`.`products` (`idproducts`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+CREATE TABLE `cta`.`creds` (
+  `idcreds` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NULL,
+  `password` VARCHAR(45) NULL,
+  `company` VARCHAR(45) NULL,
+  `productid` INT NULL,
+  PRIMARY KEY (`idcreds`),
+  INDEX `credprod_idx` (`productid` ASC) VISIBLE,
+  CONSTRAINT `credprod`
+    FOREIGN KEY (`productid`)
+    REFERENCES `cta`.`products` (`idproducts`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+ALTER TABLE `cta`.`test_step_result` 
+ADD COLUMN `issues` VARCHAR(1000) NULL AFTER `Executed_Date`;
+
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `width` INT NULL AFTER `Module`,
+ADD COLUMN `height` INT NULL AFTER `width`;	

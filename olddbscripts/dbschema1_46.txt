@@ -1,0 +1,28 @@
+ALTER TABLE `cta`.`test_step_result` 
+CHANGE COLUMN `Duration` `Duration` DOUBLE NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`test_case_results` 
+CHANGE COLUMN `Duration` `Duration` DOUBLE NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`test_suite_results` 
+CHANGE COLUMN `Duration` `Duration` DOUBLE NULL DEFAULT NULL ;
+
+UPDATE cta.test_step_result
+SET Duration = Duration / 1000 where Duration > 0 and idtest_step_result > 0;
+
+UPDATE cta.test_case_results
+SET Duration = Duration / 1000 where Duration > 0 and idtest_case_results > 0;
+
+UPDATE cta.test_suite_results
+SET Duration = Duration / 1000 where Duration > 0 and idtest_suite_results > 0;
+
+ALTER TABLE `cta`.`company` 
+ADD COLUMN `stepsrecording` VARCHAR(45) NULL DEFAULT 'true' AFTER `parallelThreads`,
+ADD COLUMN `coverage` VARCHAR(45) NULL DEFAULT 'false' AFTER `stepsrecording`,
+ADD COLUMN `apidata` VARCHAR(45) NULL DEFAULT 'false' AFTER `coverage`,
+ADD COLUMN `videorecording` VARCHAR(45) NULL DEFAULT 'false' AFTER `apidata`;
+
+ALTER TABLE `cta`.`company` 
+ADD COLUMN `gentype` VARCHAR(45) NULL DEFAULT 'recording' AFTER `videorecording`;
+
+UPDATE `cta`.`integration_static` SET `adminattribute` = 'Owner,Token,URL,Repos' WHERE (`id_integration_static` = '7');

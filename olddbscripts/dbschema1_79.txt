@@ -1,0 +1,6 @@
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `classname` VARCHAR(250) NULL AFTER `elementplaceholderindex`,
+ADD COLUMN `classnameindex` INT NULL AFTER `classname`,
+ADD COLUMN `href` VARCHAR(250) NULL AFTER `classnameindex`,
+ADD COLUMN `hrefindex` INT NULL AFTER `href`,
+ADD COLUMN `typeindex` INT NULL AFTER `hrefindex`;

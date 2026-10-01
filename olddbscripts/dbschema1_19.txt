@@ -1,0 +1,17 @@
+
+ALTER TABLE `cta`.`test_suite_case_map` 
+DROP FOREIGN KEY `TC_id`;
+ALTER TABLE `cta`.`test_suite_case_map` 
+ADD COLUMN `Object_Type` VARCHAR(45) NULL DEFAULT NULL AFTER `Object_Index`,
+CHANGE COLUMN `Test_Case_Id` `Object_Id` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `Test_Case_Index` `Object_Index` INT NULL DEFAULT NULL ,
+DROP INDEX `TC_id`;
+
+ALTER TABLE `cta`.`test_step` 
+DROP INDEX `constraint_name` ;
+
+ALTER TABLE `cta`.`test_step` 
+CHANGE COLUMN `Object_Xpath` `Object_Xpath` VARCHAR(1500) NULL DEFAULT NULL ,
+CHANGE COLUMN `recordedXpath` `recordedXpath` VARCHAR(1500) NULL DEFAULT NULL ;
+
+INSERT INTO cta.sysprops (idsysprops, name, value, comments) VALUES (36, "resultsurlpart2", "/dashboard/app/productId/1?/testSuiteId/2?/resultSuiteId/3?", 'URL for results in email');

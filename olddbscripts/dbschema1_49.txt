@@ -1,0 +1,26 @@
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('53', 'deployedenv', 'aws', 'where deployed');
+
+ALTER TABLE `cta`.`pages` 
+ADD COLUMN `version` INT NULL DEFAULT 1 AFTER `pagegroupid`;
+
+ALTER TABLE `cta`.`page_elements` 
+ADD COLUMN `status` INT NULL DEFAULT 0 AFTER `nearestname`;
+
+INSERT INTO cta.sysprops (name, value, comments) VALUES ('lowerlimitforpageversion', 75, 'Lower Range for the Page Versioning');
+INSERT INTO cta.sysprops (name, value, comments) VALUES ('upperlimitforpageversion', 95, 'Upper Range for the Page Versioning');
+INSERT INTO cta.sysprops (name, value, comments) VALUES ('elementdifference', 5, 'Element Difference for the Page Versioning');
+
+ALTER TABLE `cta`.`pages` 
+ADD COLUMN `versionedfrompage` INT NULL AFTER `version`;
+
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `script` VARCHAR(45) NULL AFTER `scriptfile`;
+
+ALTER TABLE `cta`.`page_elements` 
+ADD COLUMN `coveragecount` INT NULL DEFAULT 0 AFTER `recorded`;
+
+ALTER TABLE `cta`.`company` 
+ADD COLUMN `backendcoverage` VARCHAR(45) NULL DEFAULT 'false' AFTER `coverage`;
+
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `coverageflag` VARCHAR(45) NULL DEFAULT 'false' AFTER `multirun`;

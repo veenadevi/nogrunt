@@ -1,0 +1,72 @@
+CREATE TABLE `cta`.`pricingplans` (
+  `idpricingplans` INT NOT NULL AUTO_INCREMENT,
+  `planname` VARCHAR(45) NULL,
+  `description` VARCHAR(255) NULL,
+  `price` DECIMAL(5,2) NULL,
+  `currency` VARCHAR(45) NULL,
+  `createddate` DATETIME NULL,
+  `updateddate` DATETIME NULL,
+  `isactive` INT NULL,
+  `inactivedate` DATETIME NULL,
+  PRIMARY KEY (`idpricingplans`));
+  
+  
+  ALTER TABLE `cta`.`company` 
+ADD COLUMN `logintype` VARCHAR(45) NULL AFTER `testcaseupdatedtill`;
+
+ALTER TABLE `cta`.`pricingplans` 
+ADD COLUMN `quantity` INT NULL AFTER `inactivedate`;
+
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('76', 'cashfreesandboxurl', 'https://sandbox.cashfree.com/pg/orders', 'Cashfree sandbox URL');
+
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`) VALUES ('77', 'cfappid', 'TEST103463457d6dff2b2e5a4039f95b54364301');
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`) VALUES ('78', 'cfsecret', 'cfsk_ma_test_f69305f280a3886102654a7b4f0e6654_2e758fa0');
+
+CREATE TABLE `cta`.`orders` (
+  `idorders` INT NOT NULL AUTO_INCREMENT,
+  `companyid` INT NULL,
+  `userid` INT NULL,
+  `nogruntorderid` VARCHAR(45) NULL,
+  `pgorderid` VARCHAR(45) NULL,
+  `amount` DECIMAL(5,2) NULL,
+  `status` VARCHAR(45) NULL,
+  `createddate` DATETIME NULL,
+  `completeddate` DATETIME NULL,
+  PRIMARY KEY (`idorders`),
+  INDEX `ordercomp_idx` (`companyid` ASC) VISIBLE,
+  INDEX `orderuser_idx` (`userid` ASC) VISIBLE,
+  CONSTRAINT `ordercomp`
+    FOREIGN KEY (`companyid`)
+    REFERENCES `cta`.`company` (`idcompany`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `orderuser`
+    FOREIGN KEY (`userid`)
+    REFERENCES `cta`.`userprofile` (`iduserprofile`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+    
+    ALTER TABLE `cta`.`orders` 
+ADD COLUMN `planid` INT NULL AFTER `completeddate`,
+ADD INDEX `orderplan_idx` (`planid` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`orders` 
+ADD CONSTRAINT `orderplan`
+  FOREIGN KEY (`planid`)
+  REFERENCES `cta`.`pricingplans` (`idpricingplans`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `cta`.`orders` 
+ADD COLUMN `activateddate` DATETIME NULL AFTER `planid`;
+
+ALTER TABLE `cta`.`orders` 
+ADD COLUMN `pgpaymentid` VARCHAR(45) NULL AFTER `activateddate`,
+ADD COLUMN `completionjson` VARCHAR(1500) NULL AFTER `pgpaymentid`;
+
+ALTER TABLE `cta`.`orders` 
+CHANGE COLUMN `completionjson` `completionjson` VARCHAR(5000) NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`licenseusage` 
+ADD COLUMN `tccount` INT NULL AFTER `licusage`;

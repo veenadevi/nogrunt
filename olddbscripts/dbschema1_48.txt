@@ -1,0 +1,26 @@
+ALTER TABLE `cta`.`company` 
+ADD COLUMN `tabopenwaittime` INT NULL DEFAULT 1000 AFTER `gentype`,
+ADD COLUMN `downloadwaittime` INT NULL DEFAULT 3000 AFTER `tabopenwaittime`;
+
+
+CREATE TABLE `cta`.`dashboard` (
+  `iddashboard` INT NOT NULL AUTO_INCREMENT,
+  `companyid` INT NULL,
+  `testCaseCount` INT NULL,
+  `testStepsCount` INT NULL,
+  `stepsPassCount` INT NULL,
+  `totalDuration` DOUBLE NULL,
+  `testSuiteCount` INT NULL,
+  `totalSuiteRuns` INT NULL,
+  `suitesPassCount` INT NULL,
+  `lastexecuted` DATETIME(3) NULL,
+  PRIMARY KEY (`iddashboard`),
+  INDEX `dbcompany_idx` (`companyid` ASC) VISIBLE,
+  CONSTRAINT `dbcompany`
+    FOREIGN KEY (`companyid`)
+    REFERENCES `cta`.`company` (`idcompany`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+ALTER TABLE `cta`.`company` 
+ADD COLUMN `dashboardrefreshrate` INT NULL DEFAULT 3600000 AFTER `downloadwaittime`;

@@ -1,0 +1,39 @@
+ALTER TABLE `cta`.`pages` 
+ADD COLUMN `lastclicked_xpath` VARCHAR(1500) NULL AFTER `screenshotpath`,
+ADD COLUMN `lastclicked_name` VARCHAR(500) NULL AFTER `lastclicked_xpath`;
+
+CREATE TABLE `cta`.`pagegroup` (
+  `idpagegroup` INT NOT NULL AUTO_INCREMENT,
+  `pagename` VARCHAR(45) NULL,
+  `tcid` INT NULL,
+  `prodid` INT NULL,
+  PRIMARY KEY (`idpagegroup`),
+  INDEX `idproduct_idx` (`prodid` ASC) VISIBLE,
+  INDEX `idtc_idx` (`tcid` ASC) VISIBLE,
+  CONSTRAINT `idproduct`
+    FOREIGN KEY (`prodid`)
+    REFERENCES `cta`.`products` (`idproducts`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `idtc`
+    FOREIGN KEY (`tcid`)
+    REFERENCES `cta`.`test_case` (`idtest_case`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+ALTER TABLE `cta`.`pages` 
+ADD COLUMN `pagegroupid` INT NULL AFTER `lastclicked_name`,
+ADD INDEX `groupid_idx` (`pagegroupid` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`pages` 
+ADD CONSTRAINT `groupid`
+  FOREIGN KEY (`pagegroupid`)
+  REFERENCES `cta`.`pagegroup` (`idpagegroup`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `toaddress` VARCHAR(100) NULL AFTER `shadowpath`,
+ADD COLUMN `emailsubject` VARCHAR(100) NULL AFTER `toaddress`,
+ADD COLUMN `emailcontent` VARCHAR(500) NULL AFTER `emailsubject`;

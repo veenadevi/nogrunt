@@ -1,0 +1,19 @@
+ALTER TABLE `cta`.`test_step_result` 
+ADD INDEX `tsr_tcrid-idx` (`Test_Case_Results_Id` ASC) VISIBLE;
+
+ALTER TABLE `cta`.`test_case_results` 
+ADD INDEX `tcr_edate-idx` (`Executed_Date` ASC) VISIBLE;
+
+INSERT INTO `cta`.`sysprops` (`name`, `value`, `comments`) VALUES ('deploymenttype', 'OnPrem', 'Validation for Batch File execution either SaaS or OnPrem');
+
+ALTER TABLE `cta`.`company` 
+ADD COLUMN `bulktest` VARCHAR(45) NULL DEFAULT 'false' AFTER `videorecording`;
+
+ALTER TABLE `cta`.`api` 
+ADD COLUMN `randomkey` VARCHAR(45) NULL AFTER `createddate`;
+
+ALTER TABLE `cta`.`api` 
+CHANGE COLUMN `body` `body` VARCHAR(10000) NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`test_suite` 
+ADD COLUMN `indEmail` INT NULL DEFAULT 0 AFTER `ssonerror`;

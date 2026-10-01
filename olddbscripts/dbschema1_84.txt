@@ -1,0 +1,2 @@
+ALTER TABLE `cta`.`test_step_result` 
+ADD COLUMN `issuetype` VARCHAR(45) NULL AFTER `ThreshholdStatus`;

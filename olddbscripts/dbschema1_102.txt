@@ -1,0 +1,3 @@
+INSERT INTO `cta`.`sysprops` (`name`, `value`, `comments`) VALUES ('autowaitforapi', 'false', 'featuer flag to turn on auto wait for api completion');
+UPDATE `cta`.`sysprops` SET `comments` = 'featureflag for capturing api data during execution' WHERE (`idsysprops` = '91');
+INSERT INTO `cta`.`sysprops` (`name`, `value`, `comments`) VALUES ('apidefaultwaittime', '180', 'seconds that we wait when autowaitforapi is on by default');

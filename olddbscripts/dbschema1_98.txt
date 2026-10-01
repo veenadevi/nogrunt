@@ -1,0 +1,2 @@
+INSERT INTO cta.sysprops (name, value, comments) VALUES ('minWidth', '800', 'minimum width for maximizing ');
+INSERT INTO cta.sysprops (name, value, comments) VALUES ('minHeight', '600', 'minimum height for maximizing');

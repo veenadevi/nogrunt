@@ -1,0 +1,48 @@
+ALTER TABLE `cta`.`modules` 
+ADD COLUMN `isdisable` INT NULL DEFAULT 0 AFTER `product`;
+
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `locationstrategy` VARCHAR(45) NULL DEFAULT NULL AFTER `pagenumber`,
+ADD COLUMN `searchpageXpath` VARCHAR(1500) NULL DEFAULT NULL AFTER `locationstrategy`;
+
+CREATE TABLE `cta`.`page_testcase_api` (
+  `idpage_testcase_api` INT NOT NULL AUTO_INCREMENT,
+  `apiid` INT NULL,
+  `testcase` INT NULL,
+  `pagenumber` INT NULL,
+  PRIMARY KEY (`idpage_testcase_api`),
+  INDEX `api_idx_idx` (`apiid` ASC) VISIBLE,
+  INDEX `testcase_xx_idx` (`testcase` ASC) VISIBLE,
+  CONSTRAINT `api_idx`
+    FOREIGN KEY (`apiid`)
+    REFERENCES `cta`.`apidata` (`idapidata`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `testcase_xx`
+    FOREIGN KEY (`testcase`)
+    REFERENCES `cta`.`test_case` (`idtest_case`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+    
+    ALTER TABLE `cta`.`page_testcase_api` 
+ADD COLUMN `prodid` INT NULL AFTER `pagenumber`,
+ADD INDEX `prodid_x_idx` (`prodid` ASC) VISIBLE;
+;
+ALTER TABLE `cta`.`page_testcase_api` 
+ADD CONSTRAINT `prodid_x`
+  FOREIGN KEY (`prodid`)
+  REFERENCES `cta`.`products` (`idproducts`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  UPDATE `cta`.`integration_static` SET `adminattribute` = 'URL,Token,Username' WHERE (`id_integration_static` = '3');
+  INSERT INTO `cta`.`integration_static` (`id_integration_static`, `intname`, `adminattribute`) VALUES ('7', 'Github', 'Owner,Token');
+  
+  ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `shadowdom` INT NULL AFTER `searchpageXpath`,
+ADD COLUMN `shadowindex` INT NULL AFTER `shadowdom`,
+ADD COLUMN `shadowelement` VARCHAR(45) NULL AFTER `shadowindex`;
+
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `shadowpath` VARCHAR(500) NULL AFTER `shadowelement`;

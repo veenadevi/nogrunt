@@ -1,0 +1,28 @@
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `gendataType` VARCHAR(45) NULL AFTER `testdata_source`,
+ADD COLUMN `gendatalen` INT NULL AFTER `gendataType`;
+
+ALTER TABLE `cta`.`userprofile` 
+ADD COLUMN `status` INT NULL DEFAULT 0 AFTER `email`;
+
+ALTER TABLE `cta`.`company` 
+ADD UNIQUE INDEX `compUnique` (`companyname` ASC) VISIBLE;
+;
+
+ALTER TABLE `cta`.`company` 
+ADD COLUMN `status` INT NULL DEFAULT 0 AFTER `contactphone`;
+
+ALTER TABLE `cta`.`userprofile` 
+ADD COLUMN `phonenumber` VARCHAR(45) NULL AFTER `status`;
+
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `DBVersion` VARCHAR(45) NULL AFTER `gendatalen`;
+
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `clickable` INT NULL DEFAULT 0 AFTER `DBVersion`;
+
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `Issues` VARCHAR(1000) NULL AFTER `clickable`;
+
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `screenshot` VARCHAR(250) NULL AFTER `Issues`;

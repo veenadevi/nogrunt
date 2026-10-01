@@ -1,0 +1,15 @@
+INSERT INTO `cta`.`sysprops` (`idsysprops`, `name`, `value`, `comments`) VALUES ('32', 'listlimit', '50', 'Limit for testcase DropDown');
+
+ALTER TABLE `cta`.`userprofile` 
+ADD COLUMN `verificationstatus` VARCHAR(45) NULL DEFAULT NULL AFTER `pwdchgcompletedtime`;
+
+ALTER TABLE `cta`.`userprofile` 
+ADD COLUMN `verificationtimer` DATETIME NULL AFTER `verificationstatus`;
+
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `samerowtype` VARCHAR(45) NULL AFTER `recordedXpath`,
+ADD COLUMN `samerowindex` INT NULL AFTER `samerowtype`;
+
+update cta.sysprops set value = "Test Scenario - &testcasename - has &status" where idsysprops = 26;
+
+insert into cta.sysprops set idsysprops = 33, name="testsuiteexecutionsubject", value="Test Suite - &testsuite - has &statusED";

@@ -1,0 +1,22 @@
+ALTER TABLE `cta`.`test_step` 
+ADD COLUMN `apiData` JSON NULL DEFAULT NULL AFTER `continueon_fail`;
+
+INSERT INTO `cta`.`sysprops` (`name`, `value`, `comments`) VALUES ('seleniumwaittime', '300', 'selenium times - will release session if nto activity');
+
+
+ALTER TABLE `cta`.`apicall_data` 
+CHANGE COLUMN `statuscode` `statuscode` INT NULL DEFAULT NULL ;
+
+ALTER TABLE `cta`.`test_case_results` 
+CHANGE COLUMN `issues` `issues` VARCHAR(1000) NULL DEFAULT NULL ;
+
+INSERT INTO `cta`.`sysprops` (`name`, `value`, `comments`) VALUES ('testsuiteresultforapi', '?action=getTestCaseResultFromTestSuiteResult&companyid=1?&token=2?&testSuiteResultId=3?&criteria=All', 'For jenkins and other build pipeline api calls');
+
+ALTER TABLE `cta`.`apicall_data` 
+ADD COLUMN `stepnum` INT NULL AFTER `Test_Step_Result_Id`;
+
+ALTER TABLE `cta`.`test_case` 
+ADD COLUMN `stealthMode` INT NULL AFTER `isWait`;
+
+ALTER TABLE `cta`.`apicall_data` 
+ADD COLUMN `attempt` INT NULL DEFAULT 1 AFTER `stepnum`;

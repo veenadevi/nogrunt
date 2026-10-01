@@ -1,0 +1,10 @@
+1. continue test case from one test case to next
+2. multi run of a test case
+3. screen shot only on error
+4. fixed locator strategy for sam row and previous element
+5. impact analysis now works for new suite and existing suite
+6. test case description now works correctly in authoring page- earlier it was being cached 
+
+
+
+

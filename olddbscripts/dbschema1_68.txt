@@ -1,0 +1,3 @@
+ALTER TABLE `cta`.`test_step_attr` 
+ADD COLUMN `xpos` INT NULL DEFAULT 0 AFTER `getattribute`,
+ADD COLUMN `ypos` INT NULL DEFAULT 0 AFTER `xpos`;

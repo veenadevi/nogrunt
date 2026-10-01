@@ -1,0 +1,8 @@
+1. Update all duration to double and divide by 1000 - this shoudl ensure that nogrunt doesnt fail showing metrics on results page
+2. Now in extension you can turn on and off coverage, video and apidata
+3. if there is an error taking a screenshot the test case execution will not fail
+4. location strategy updates
+
+
+
+
