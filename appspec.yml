@@ -1,0 +1,12 @@
+#Commented by bharath
+# comment for testing pipeline auto trigger -can be remvoed
+version: 0.0
+os: windows
+files:
+  - source: target/KeyLogging.war
+    destination: C:\Program Files\Apache Software Foundation\Tomcat 10.1\webapps
+    overwrite: true 
+  - source: target/KeyLogging.war
+    destination: C:\Program Files\Apache Software Foundation\Tomcat 10.1_Tomcat10_2\webapps
+    overwrite: true
+file_exists_behavior: OVERWRITE
